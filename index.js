@@ -16,20 +16,9 @@ const {prefix, token, giphyAPIToken} = require('./config.json');//values I defin
 const {version} = require('./package.json'); //provides with package version number
 
 var GphApiClient = require('giphy-js-sdk-core')
-giphy = GphApiClient("giphyAPIToken")
+giphy = GphApiClient(giphyAPIToken)
 
 const client = new Discord.Client();//client is what will connect to the discord server
-
-//KOFTA uptime
-//client.uptime = 0?
-let totalSeconds = (client.uptime / 1000);
-let days = Math.floor(totalSeconds / 86400);
-let hours = Math.floor(totalSeconds / 3600);
-totalSeconds %= 3600;
-let minutes = Math.floor(totalSeconds / 60);
-let seconds = totalSeconds % 60;
-
-let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
 
 client.login(token); //allows bot to login into the server with a token.
 console.log('BOT = [LOGGED IN]');
