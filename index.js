@@ -89,7 +89,7 @@ client.on("message", message => {
                 var totalResponses = response.data.length;
                 var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
                 var responseFinal = response.data[responseIndex];
-                message.channel.send('Pong! (~ ' + client.ws.ping + 'ms)', {
+                message.channel.send('Pong! (≈**' + client.ws.ping + '**ms)', {
                     files: [responseFinal.images.fixed_height.url]})
             })
             .catch ((error) => {
