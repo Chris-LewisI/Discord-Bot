@@ -37,7 +37,8 @@ console.log('BOT = [LOGGED IN]');
 
 client.once('ready', () => {
     console.log('BOT = [ACTIVE]')
-    client.channels.cache.get("401390003919519745").send(`Tune into VALORANT streams on Twitch today to get a beta code drop!`);
+    //Announcement
+    client.channels.cache.get("401390003919519745").send(``);
 });
 
 client.setInterval(function(){ // Set interval for checking
@@ -69,8 +70,7 @@ client.on("message", message => {
     //not showing up
     if(message.content.startsWith(prefix)) {
         if (!command === 'fetar' || !command === 'help' || !command === 'happy_hour') {
-            message.channel.send('Invalid Command');
-            message.channel.send('Type in `//help` for a list of commands!');
+            message.channel.send('Invalid Command\nType in `//help` for a list of commands!');
         }
     }
 
@@ -88,17 +88,7 @@ client.on("message", message => {
     }
     
     if (command === 'help') {
-        message.channel.send(`*KOFTA version: ${version}*`);
-        message.channel.send('**C O M M A N D S**');
-        message.channel.send('- "//fetar" : Shows a countdown until Lent is over! 🍖');
-        message.channel.send('- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS');
-        message.channel.send('**D E S C R I P T I O N**');
-        message.channel.send('- Notifies when it is happy hour in COD.');
-        message.channel.send('- Gives a good morning message.');
-        message.channel.send('**U P D A T E S**');
-        message.channel.send('- Giphy API addition:');        
-        message.channel.send('      - Daily MEMES will be uploaded!');
-        message.channel.send('      - Memes will be output with every command result.');
+        message.channel.send(`*KOFTA version: ${version}*\n)**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**D E S C R I P T I O N**\n- Notifies when it is happy hour in COD.\n- Gives a good morning message.\n**U P D A T E S**\n- Giphy API addition:\n- Daily MEMES will be uploaded!\n- Memes will be output with every command result.`);
     }
 
     if (command === 'fetar') {
@@ -118,15 +108,13 @@ client.on("message", message => {
                 var totalResponses = response.data.length;
                 var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
                 var responseFinal = response.data[responseIndex];
-                message.channel.send('🍖 **E N D   O F   L E N T** 🍖');
-                message.channel.send(`**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`, {
+                message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`, {
                     files: [responseFinal.images.fixed_height.url]})
             })
             .catch ((error) => {
                 console.log('GIF could not load.')
                 console.log(error);
-                message.channel.send('🍖 **E N D   O F   L E N T** 🍖');
-                message.channel.send(`**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`)
+                message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`)
             })
 
     }
