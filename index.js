@@ -75,7 +75,7 @@ client.on("message", message => {
     }
 
     if(command === 'ping') {
-        message.channel.send('Pong! (~ ' + client.ping + 'ms)');
+        message.channel.send('Pong! (~ ' + client.ws.ping + 'ms)');
     }
 
     if(command === 'uptime') {
