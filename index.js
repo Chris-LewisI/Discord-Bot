@@ -29,7 +29,7 @@ client.once('ready', () => {
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
     if(date.getHours() === 9 && date.getMinutes() === 0){ // Check the time
-        client.channels.cache.get("401395341347520523").send(`Rise N' Shine Molokhia Boissss! 🌞`);
+        client.channels.cache.get("401390003919519745").send(`Rise N' Shine Molokhia Boissss! 🌞`);
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
 client.setInterval(function(){ // Set interval for checking
