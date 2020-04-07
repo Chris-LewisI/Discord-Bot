@@ -22,8 +22,8 @@ giphy = GphApiClient("giphySDKToken")
 const client = new Discord.Client();//client is what will connect to the discord server
 
 //KOFTA uptime
+//client.uptime = 0?
 let totalSeconds = (client.uptime / 1000);
-console.log(totalSeconds)
 let days = Math.floor(totalSeconds / 86400);
 let hours = Math.floor(totalSeconds / 3600);
 totalSeconds %= 3600;
@@ -31,13 +31,13 @@ let minutes = Math.floor(totalSeconds / 60);
 let seconds = totalSeconds % 60;
 
 let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
-console.log(uptime);
 
 client.login(token); //allows bot to login into the server with a token.
 console.log('BOT = [LOGGED IN]');
 
 client.once('ready', () => {
     console.log('BOT = [ACTIVE]')
+    client.channels.cache.get("401390003919519745").send(`Tune into VALORANT streams on Twitch today to get a beta code drop!`);
 });
 
 client.setInterval(function(){ // Set interval for checking
@@ -65,9 +65,7 @@ client.on("message", message => {
 
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
-   
-    client.channels.cache.get("401390003919519745").send(`Tune into VALORANT streams on Twitch today to get a beta code drop!`);
-    
+
     //not showing up
     if(message.content.startsWith(prefix)) {
         if (!command === 'fetar' || !command === 'help' || !command === 'happy_hour') {
