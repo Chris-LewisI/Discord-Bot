@@ -1,7 +1,5 @@
 /*
 KOFTA invite link: https://discordapp.com/api/oauth2/authorize?client_id=696705578529062954&permissions=0&scope=bot
-Things the bot should do:
-- send a daily meme
 */
 
 var today = new Date();
@@ -32,7 +30,20 @@ client.once('ready', () => {
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
     if(date.getHours() === 13 && date.getMinutes() === 0){ // Check the time
-        client.channels.cache.get("401390003919519745").send(`Rise N' Shine Molokhia Boissss! 🌞`);
+        giphy.search('gifs', {"q": "good morning"})
+        .then((response) => {
+            console.log(response);
+            var totalResponses = response.data.length;
+            var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+            var responseFinal = response.data[responseIndex];
+            client.channels.cache.get("401390003919519745").send(`Rise N' Shine Molokhia Boissss! 🌞`, {
+                files: [responseFinal.images.fixed_height.url]})
+        })
+        .catch ((error) => {
+            console.log('GIF could not load.');
+            console.log(error);
+            client.channels.cache.get("401390003919519745").send(`Rise N' Shine Molokhia Boissss! 🌞`);
+        })
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
 client.setInterval(function(){ // Set interval for checking
@@ -49,9 +60,9 @@ client.setInterval(function(){ // Set interval for checking
 }, 60000); // Repeat every x milliseconds (1 minute)
 
 client.on('ready', () => {
-    client.user.setStatus('dnd');
     try {
-        client.user.setActivity('Giving Chris a hard time.');
+        client.user.setStatus('online');
+        client.user.setActivity('with french fries 🍟');
     } catch (error) {
         console.log(error);
     }
@@ -71,7 +82,21 @@ client.on("message", message => {
     }
 
     if(command === 'ping') {
-        message.channel.send('Pong! (~ ' + client.ws.ping + 'ms)');
+
+        giphy.search('gifs', {"q": "ping pong"})
+            .then((response) => {
+                console.log(response);
+                var totalResponses = response.data.length;
+                var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+                var responseFinal = response.data[responseIndex];
+                message.channel.send('Pong! (~ ' + client.ws.ping + 'ms)', {
+                    files: [responseFinal.images.fixed_height.url]})
+            })
+            .catch ((error) => {
+                console.log('GIF could not load.')
+                console.log(error);
+                message.channel.send('Pong! (~ ' + client.ws.ping + 'ms)')
+            })
     }
 
     if(command === 'uptime') {
@@ -98,7 +123,6 @@ client.on("message", message => {
         var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
         giphy.search('gifs', {"q": "food"})
-            //KOFTA is completely skipping "then" and going to "catch"
             .then((response) => {
                 console.log(response);
                 var totalResponses = response.data.length;
@@ -116,5 +140,20 @@ client.on("message", message => {
     }
     if (command === 'happy_hour') {
         message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫');
+
+        giphy.search('gifs', {"q": "Modern Warfare"})
+        .then((response) => {
+            console.log(response);
+            var totalResponses = response.data.length;
+            var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+            var responseFinal = response.data[responseIndex];
+            message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫', {
+                files: [responseFinal.images.fixed_height.url]})
+        })
+        .catch ((error) => {
+            console.log('GIF could not load.')
+            console.log(error);
+            message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫')
+        })
     }
 });
