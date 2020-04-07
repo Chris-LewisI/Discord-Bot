@@ -93,14 +93,14 @@ client.on("message", message => {
                 var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
                 var responseFinal = response.data[responseIndex];
                 message.channel.send('🍖 **E N D   O F   L E N T** 🍖');
-                message.channel.send(`**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`, {
+                message.channel.send(`**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`, {
                     files: [responseFinal.images.fixed_height.url]})
             })
             .catch ((error) => {
                 console.log('GIF could not load.')
                 console.log(error);
                 message.channel.send('🍖 **E N D   O F   L E N T** 🍖');
-                message.channel.send(`**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`)
+                message.channel.send(`**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`)
             })
 
     }
