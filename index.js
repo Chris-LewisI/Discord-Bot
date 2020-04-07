@@ -4,6 +4,17 @@ Things the bot should do:
 - send a daily meme 
 - countdown to fetar _DONE!_
 */
+
+//KOFTA uptime
+let totalSeconds = (client.uptime / 1000);
+let days = Math.floor(totalSeconds / 86400);
+let hours = Math.floor(totalSeconds / 3600);
+totalSeconds %= 3600;
+let minutes = Math.floor(totalSeconds / 60);
+let seconds = totalSeconds % 60;
+
+let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+
 var today = new Date();
 console.log(`Server Time: ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`);
 console.log(`EST Time: ${today.getHours()-4}:${today.getMinutes()}:${today.getSeconds()}`);
@@ -60,6 +71,10 @@ client.on("message", message => {
             message.channel.send('Type in `//help` for a list of commands!');
         }
     }
+
+    if(command === 'uptime') {
+        message.channel.send(uptime);
+    }
     
     if (command === 'help') {
         message.channel.send(`*KOFTA version: ${version}*`);
@@ -109,12 +124,4 @@ client.on("message", message => {
     }
 });
 
-//KOFTA uptime
-let totalSeconds = (client.uptime / 1000);
-let days = Math.floor(totalSeconds / 86400);
-let hours = Math.floor(totalSeconds / 3600);
-totalSeconds %= 3600;
-let minutes = Math.floor(totalSeconds / 60);
-let seconds = totalSeconds % 60;
-
-let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+console.log(uptime);
