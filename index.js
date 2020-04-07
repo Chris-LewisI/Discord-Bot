@@ -63,7 +63,11 @@ client.setInterval(function(){ // Set interval for checking
 
 client.on('ready', () => {
     client.user.setStatus('dnd');
-    client.user.setGame('with yo girl.');
+    try {
+        client.user.setActivity('Giving Chris a hard time.');
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 client.on("message", message => {
