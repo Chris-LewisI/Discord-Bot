@@ -61,6 +61,11 @@ client.setInterval(function(){ // Set interval for checking
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
 
+client.on('ready', () => {
+    client.user.setStatus('dnd');
+    client.user.setGame('with yo girl.');
+})
+
 client.on("message", message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
