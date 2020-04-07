@@ -5,16 +5,6 @@ Things the bot should do:
 - countdown to fetar _DONE!_
 */
 
-//KOFTA uptime
-let totalSeconds = (client.uptime / 1000);
-let days = Math.floor(totalSeconds / 86400);
-let hours = Math.floor(totalSeconds / 3600);
-totalSeconds %= 3600;
-let minutes = Math.floor(totalSeconds / 60);
-let seconds = totalSeconds % 60;
-
-let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
-
 var today = new Date();
 console.log(`Server Time: ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`);
 console.log(`EST Time: ${today.getHours()-4}:${today.getMinutes()}:${today.getSeconds()}`);
@@ -30,6 +20,16 @@ var GphApiClient = require('giphy-js-sdk-core')
 giphy = GphApiClient("giphySDKToken")
 
 const client = new Discord.Client();//client is what will connect to the discord server
+
+//KOFTA uptime
+let totalSeconds = (client.uptime / 1000);
+let days = Math.floor(totalSeconds / 86400);
+let hours = Math.floor(totalSeconds / 3600);
+totalSeconds %= 3600;
+let minutes = Math.floor(totalSeconds / 60);
+let seconds = totalSeconds % 60;
+
+let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
 
 client.login(token); //allows bot to login into the server with a token.
 console.log('BOT = [LOGGED IN]');
