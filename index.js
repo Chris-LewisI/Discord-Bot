@@ -1,8 +1,7 @@
 /*
+KOFTA invite link: https://discordapp.com/api/oauth2/authorize?client_id=696705578529062954&permissions=0&scope=bot
 Things the bot should do:
-- create scheduled announcements _DONE!_
-- send a daily meme 
-- countdown to fetar _DONE!_
+- send a daily meme
 */
 
 var today = new Date();
@@ -13,11 +12,11 @@ console.log("BOT = [STARTING...]");
 
 const Discord = require('discord.js');//imports discord.js library
 const nodemon = require('nodemon');
-const {prefix, token, giphySDKToken} = require('./config.json');//values I defined within the config file.
+const {prefix, token, giphyAPIToken} = require('./config.json');//values I defined within the config file.
 const {version} = require('./package.json'); //provides with package version number
 
 var GphApiClient = require('giphy-js-sdk-core')
-giphy = GphApiClient("giphySDKToken")
+giphy = GphApiClient("giphyAPIToken")
 
 const client = new Discord.Client();//client is what will connect to the discord server
 
