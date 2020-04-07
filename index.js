@@ -38,7 +38,7 @@ console.log('BOT = [LOGGED IN]');
 client.once('ready', () => {
     console.log('BOT = [ACTIVE]')
     //Announcement
-    client.channels.cache.get("401390003919519745").send(``);
+    //client.channels.cache.get("401390003919519745").send(``);
 });
 
 client.setInterval(function(){ // Set interval for checking
