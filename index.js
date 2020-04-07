@@ -28,20 +28,20 @@ client.once('ready', () => {
 
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
-    if(date.getHours() === 9 && date.getMinutes() === 0){ // Check the time
+    if(date.getHours() === 9){ // Check the time
         client.channels.cache.get("401390003919519745").send(`Rise N' Shine Molokhia Boissss! 🌞`);
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
-    if(date.getHours() === 21 && date.getMinutes() === 0){ // Check the time
+    if(date.getHours() === 21){ // Check the time
         client.channels.cache.get("401395341347520523").send(`**[KOLOTS]** Happy Hour: _2X XP!_`);
         client.channels.cache.get("401395341347520523").send(`🍖 TIME TO EAT BOIS 🍖`);
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
-    if(date.getHours() === 22 && date.getMinutes() === 0){ // Check the time
+    if(date.getHours() === 22){ // Check the time
         client.channels.cache.get("401395341347520523").send(`Hope your 2XP was as good as KOFTA! 😋😋`);
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
