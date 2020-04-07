@@ -5,7 +5,8 @@ Things the bot should do:
 - countdown to fetar _DONE!_
 */
 var today = new Date();
-console.log(`Time: ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`);
+console.log(`Server Time: ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`);
+console.log(`EST Time: ${today.getHours()-4}:${today.getMinutes()}:${today.getSeconds()}`);
 
 console.log("BOT = [STARTING...]");
 
@@ -28,13 +29,13 @@ client.once('ready', () => {
 
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
-    if(date.getHours() === 9){ // Check the time
+    if(date.getHours() === 13 && date.getMinutes() === 0){ // Check the time
         client.channels.cache.get("401390003919519745").send(`Rise N' Shine Molokhia Boissss! 🌞`);
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
-    if(date.getHours() === 21){ // Check the time
+    if(date.getHours() === 1 && date.getMinutes() === 0){ // Check the time
         client.channels.cache.get("401395341347520523").send(`**[KOLOTS]** Happy Hour: _2X XP!_`);
         client.channels.cache.get("401395341347520523").send(`🍖 TIME TO EAT BOIS 🍖`);
     }
