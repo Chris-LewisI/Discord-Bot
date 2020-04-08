@@ -49,13 +49,40 @@ client.setInterval(function(){ // Set interval for checking
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
     if(date.getHours() === 1 && date.getMinutes() === 0){ // Check the time
-        client.channels.cache.get("401390003919519745").send(`**[KOLOTS]** Happy Hour: _2X XP!_\n🍖 TIME TO EAT BOIS 🍖`);
+        giphy.search('gifs', {"q": "excited"})
+        .then((response) => {
+            console.log(response);
+            var totalResponses = response.data.length;
+            var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+            var responseFinal = response.data[responseIndex];
+            client.channels.cache.get("401390003919519745").send(`**[KOLOTS]** Happy Hour: _2X XP!_\n🍖 TIME TO EAT BOIS 🍖`, {
+                files: [responseFinal.images.fixed_height.url]})
+        })
+        .catch ((error) => {
+            console.log('GIF could not load.');
+            console.log(error);
+            client.channels.cache.get("401390003919519745").send(`**[KOLOTS]** Happy Hour: _2X XP!_\n🍖 TIME TO EAT BOIS 🍖`);
+        })
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
     if(date.getHours() === 2 && date.getMinutes() === 0){ // Check the time
         client.channels.cache.get("401390003919519745").send(`Hope your 2XP was as good as KOFTA! 😋😋`);
+        giphy.search('gifs', {"q": "satisfied"})
+        .then((response) => {
+            console.log(response);
+            var totalResponses = response.data.length;
+            var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+            var responseFinal = response.data[responseIndex];
+            client.channels.cache.get("401390003919519745").send(`Hope your 2XP was as good as KOFTA! 😋😋`, {
+                files: [responseFinal.images.fixed_height.url]})
+        })
+        .catch ((error) => {
+            console.log('GIF could not load.');
+            console.log(error);
+            client.channels.cache.get("401390003919519745").send(`Hope your 2XP was as good as KOFTA! 😋😋`);
+        })
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
 
