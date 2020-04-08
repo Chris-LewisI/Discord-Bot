@@ -98,11 +98,11 @@ client.on("message", message => {
     if (message.channel.type === 'dm' && message.author.id != token) {
         console.log("[DM] " + message.author.username + ": " + message.content);
         //Send response only once
-        var counter = 1;
-        while (counter == 1) {
-            message.channel.send('Thank you for your feedback!');
-            counter++;
-        }
+        // var counter = 1;
+        // while (counter == 1) {
+        //     message.channel.send('Thank you for your feedback!');
+        //     counter++;
+        // }
     }
 
     if (!message.content.startsWith(prefix) || message.author.bot) return;
