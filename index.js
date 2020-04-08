@@ -97,7 +97,7 @@ client.on('ready', () => {
 client.on("message", message => {
     if (message.channel.type === 'dm' && message.author.id != token) {
         console.log("[DM] " + message.author.username + ": " + message.content);
-        message.channel.send('Thank you for your feedback!')
+        //message.channel.send('Thank you for your feedback!')
     }
 
     if (!message.content.startsWith(prefix) || message.author.bot) return;
