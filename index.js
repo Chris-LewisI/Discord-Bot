@@ -101,83 +101,86 @@ client.on("message", message => {
         console.log("[DM] " + message.author.username + ": " + message.content);
         message.reply('Thanks for the feedback :white_check_mark:');
     }
-
-    if (!message.content.startsWith(prefix) || message.author.client) return;
-
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const command = args.shift().toLowerCase();
-
-    if(command === 'ping') {
-
-        giphy.search('gifs', {"q": "ping pong"})
-            .then((response) => {
-                console.log(response);
-                var totalResponses = response.data.length;
-                var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
-                var responseFinal = response.data[responseIndex];
-                message.channel.send('Pong! (≈**' + client.ws.ping + '**ms)', {
-                    files: [responseFinal.images.fixed_height.url]})
-            })
-            .catch ((error) => {
-                console.log('GIF could not load.')
-                console.log(error);
-                message.channel.send('Pong! (~ ' + client.ws.ping + 'ms)')
-            })
-    }
-
-    if(command === 'uptime') {
-        let days = Math.floor(client.uptime / 86400000);
-        let hours = Math.floor(client.uptime / 3600000) % 24;
-        let minutes = Math.floor(client.uptime / 60000) % 60;
-        let seconds = Math.floor(client.uptime / 1000) % 60;
-  
-        message.channel.send(`__Uptime:__\n${days}d ${hours}h ${minutes}m ${seconds}s`);
-    }
     
-    if (command === 'help') {
-        message.channel.send(`*KOFTA version: ${version}*\n**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**U P D A T E S**\n--Regular Debugging\n\n*If you have an issue with using the bot or would like to offer your ideas please DM the bot so I can help!*`);
-    }
+    else {
 
-    if (command === 'fetar') {
-        var deadline = new Date("apr 19, 2020 00:00:00").getTime();
-        var currentDate = new Date().getTime();
-        var remainingTime = deadline - currentDate;
+        if (!message.content.startsWith(prefix) || message.author.client) return;
 
-        var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24)); 
-        var hours = Math.floor((remainingTime %(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
-        var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60)); 
-        var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+        const args = message.content.slice(prefix.length).split(/ +/);
+        const command = args.shift().toLowerCase();
 
-        giphy.search('gifs', {"q": "food"})
+        if(command === 'ping') {
+
+            giphy.search('gifs', {"q": "ping pong"})
+                .then((response) => {
+                    console.log(response);
+                    var totalResponses = response.data.length;
+                    var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+                    var responseFinal = response.data[responseIndex];
+                    message.channel.send('Pong! (≈**' + client.ws.ping + '**ms)', {
+                        files: [responseFinal.images.fixed_height.url]})
+                })
+                .catch ((error) => {
+                    console.log('GIF could not load.')
+                    console.log(error);
+                    message.channel.send('Pong! (~ ' + client.ws.ping + 'ms)')
+                })
+        }
+
+        if(command === 'uptime') {
+            let days = Math.floor(client.uptime / 86400000);
+            let hours = Math.floor(client.uptime / 3600000) % 24;
+            let minutes = Math.floor(client.uptime / 60000) % 60;
+            let seconds = Math.floor(client.uptime / 1000) % 60;
+    
+            message.channel.send(`__Uptime:__\n${days}d ${hours}h ${minutes}m ${seconds}s`);
+        }
+        
+        if (command === 'help') {
+            message.channel.send(`*KOFTA version: ${version}*\n**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**U P D A T E S**\n--Regular Debugging\n\n*If you have an issue with using the bot or would like to offer your ideas please DM the bot so I can help!*`);
+        }
+
+        if (command === 'fetar') {
+            var deadline = new Date("apr 19, 2020 00:00:00").getTime();
+            var currentDate = new Date().getTime();
+            var remainingTime = deadline - currentDate;
+
+            var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24)); 
+            var hours = Math.floor((remainingTime %(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
+            var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60)); 
+            var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+            giphy.search('gifs', {"q": "food"})
+                .then((response) => {
+                    console.log(response);
+                    var totalResponses = response.data.length;
+                    var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+                    var responseFinal = response.data[responseIndex];
+                    message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`, {
+                        files: [responseFinal.images.fixed_height.url]})
+                })
+                .catch ((error) => {
+                    console.log('GIF could not load.')
+                    console.log(error);
+                    message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`)
+                })
+
+        }
+        if (command === 'happy_hour') {
+            giphy.search('gifs', {"q": "Modern Warfare"})
             .then((response) => {
                 console.log(response);
                 var totalResponses = response.data.length;
                 var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
                 var responseFinal = response.data[responseIndex];
-                message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`, {
+                message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫', {
                     files: [responseFinal.images.fixed_height.url]})
             })
             .catch ((error) => {
                 console.log('GIF could not load.')
                 console.log(error);
-                message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`)
+                message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫')
             })
-
-    }
-    if (command === 'happy_hour') {
-        giphy.search('gifs', {"q": "Modern Warfare"})
-        .then((response) => {
-            console.log(response);
-            var totalResponses = response.data.length;
-            var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
-            var responseFinal = response.data[responseIndex];
-            message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫', {
-                files: [responseFinal.images.fixed_height.url]})
-        })
-        .catch ((error) => {
-            console.log('GIF could not load.')
-            console.log(error);
-            message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫')
-        })
+        }
     }
 });
