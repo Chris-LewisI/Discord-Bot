@@ -95,21 +95,20 @@ client.on('ready', () => {
 })
 
 client.on("message", message => {
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+    const args = message.content.slice(prefix.length).split(/ +/);
+    const command = args.shift().toLowerCase();
 
     if (message.channel.type == "dm") {
         console.log('Incoming DM...');
         if (message.author.bot) return;
         else {
             console.log(`[DM] ${message.author.id}: ${message.content}`);
-            message.author.send("__Thanks for your feedback!__");
+            message.reply("__Thanks for your feedback!__");
             return;
         }
     }
-
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
-
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const command = args.shift().toLowerCase();
 
     if(command === 'ping') {
 
