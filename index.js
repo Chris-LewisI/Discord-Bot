@@ -100,7 +100,6 @@ client.on("message", message => {
     if (message.channel.type === 'dm' && message.author.id != client.id && message.author.id != 696705578529062954) {
         console.log("[DM] " + message.author.username + ": " + message.content);
         message.reply('Thanks for the feedback :white_check_mark:');
-        return;
     }
 
     if (!message.content.startsWith(prefix) || message.author.client) return;
