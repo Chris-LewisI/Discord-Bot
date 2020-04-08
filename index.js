@@ -95,8 +95,7 @@ client.on('ready', () => {
 })
 
 client.on("message", message => {
-
-    if (!message.content.startsWith(prefix) || message.author.client) return;
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
@@ -129,7 +128,7 @@ client.on("message", message => {
     }
     
     if (command === 'help') {
-        message.channel.send(`*KOFTA version: ${version}*\n**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**U P D A T E S**\n--Regular Debugging\n\n*If you have an issue with using the bot or would like to offer your ideas please DM the bot so I can help!*`);
+        message.channel.send(`*KOFTA version: ${version}*\n**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**U P D A T E S**\n- Giphy API addition:\n- Daily MEMES will be uploaded!\n- Memes will be output with every command result.`);
     }
 
     if (command === 'fetar') {
@@ -174,9 +173,4 @@ client.on("message", message => {
             message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫')
         })
     }
-    // if (message.channel.type === 'dm' && message.author.id != client.id && message.author.id != 696705578529062954) {
-    //     console.log("[DM] " + message.author.username + ": " + message.content);
-    //     message.reply('Thanks for the feedback :white_check_mark:');
-    //     console.log('method2');
-    // }
 });
