@@ -174,9 +174,9 @@ client.on("message", message => {
             message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫')
         })
     }
-    if (message.channel.type === 'dm' && message.author.id != client.id && message.author.id != 696705578529062954) {
-        console.log("[DM] " + message.author.username + ": " + message.content);
-        message.reply('Thanks for the feedback :white_check_mark:');
-        console.log('method2');
-    }
+    // if (message.channel.type === 'dm' && message.author.id != client.id && message.author.id != 696705578529062954) {
+    //     console.log("[DM] " + message.author.username + ": " + message.content);
+    //     message.reply('Thanks for the feedback :white_check_mark:');
+    //     console.log('method2');
+    // }
 });
