@@ -105,7 +105,7 @@ client.on("message", message => {
         if (message.author.bot) return;
         else {
             const msg = message.content.slice(prefix.length).split(/ +/);
-            console.log(`[DM] ${message.author}: ${msg}`);
+            console.log(`[DM] ${message.author.username}: ${msg}`);
             message.reply("__Thanks for your feedback!__");
             return;
         }
