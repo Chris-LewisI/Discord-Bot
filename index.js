@@ -96,10 +96,11 @@ client.on('ready', () => {
 
 client.on("message", message => {
     //Repeatedly sends the response with no end
-    // if (message.channel.type === 'dm' && message.author.id != token) {
-    //     console.log("[DM] " + message.author.username + ": " + message.content);
-    //     message.reply('Thanks for the feedback :joy:');
-    // }
+    if (message.channel.type === 'dm' && message.author.id != token) {
+        console.log("[DM] " + message.author.username + ": " + message.content);
+        message.reply('Thanks for the feedback :white_check_mark:');
+        return;
+    }
 
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
