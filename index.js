@@ -100,7 +100,7 @@ client.on("message", message => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
  
-    if (message.channel.type === "dm") {
+    if (message.channel.type == "dm") {
         console.log('Incoming DM...');
         if (message.author.id == 696705578529062954) return;
         else {
