@@ -107,14 +107,14 @@ client.on("message", message => {
 
             const embed = new Discord.MessageEmbed()
               .setTitle('Thanks For Your Feedback!')
-              .setColor('#0099ff')
-              .attachFiles(['./kofta.png'])
-              .setThumbnail('attachment://kofta.png')
-              .setAuthor(client.user.username, client.user.displayAvatarURL)
+              .setColor('#ffee00')
+              .attachFiles(['./thumbUp.png','./kofta.png'])
+              .setThumbnail('attachment://thumbUp.png')
+              .setAuthor(client.user.username, 'attachment://kofta.png')
               .addFields(
-            		{ value: 'Our developer will take it into consideration!', inline: true })
+            		{ name: 'Developer:', value: 'Thank you for using KOFTA, we will go through your feedback and improve the bot where necessary!', inline: true })
 
-            const msg = message.content.slice(prefix.length);//.split(/ +/);
+            const msg = message.content.slice(prefix.length);
             console.log(`[DM] ${message.author.username}: ${msg}`);
 
             message.reply(embed);
