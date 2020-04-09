@@ -152,7 +152,7 @@ client.on("message", message => {
         var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-        giphy.search('gifs', {"q": "food"})
+        giphy.search('gifs', {"q": "let's eat"})
             .then((response) => {
                 console.log(response);
                 var totalResponses = response.data.length;
