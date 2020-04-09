@@ -35,8 +35,23 @@ client.setInterval(function(){ // Set interval for checking
             var totalResponses = response.data.length;
             var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
             var responseFinal = response.data[responseIndex];
-            client.channels.cache.get("401390003919519745").send(`Rise N' Shine Molokhia Boissss! 🌞`, {
-                files: [responseFinal.images.fixed_height.url]})
+            var url = responseFinal.images.fixed_height.url;
+
+            const embed = new Discord.MessageEmbed()
+              .attachFiles(['./kofta.png'])
+              .setColor('#ffee00')
+              .setThumbnail(url)
+              .setAuthor(client.user.username, 'attachment://kofta.png')
+              .setTitle('**Morning Gentlemen!**')
+              .addFields(
+                { name: 'Time To Game:', value: `Rise N' Shine Molokhia Boissss! 🌞`, inline: true })
+
+              message.channel.send(embed);
+              return;
+
+            client.channels.cache.get("401390003919519745").send(embed);
+
+
         })
         .catch ((error) => {
             console.log('GIF could not load.');
@@ -53,8 +68,21 @@ client.setInterval(function(){ // Set interval for checking
             var totalResponses = response.data.length;
             var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
             var responseFinal = response.data[responseIndex];
-            client.channels.cache.get("401390003919519745").send(`**[KOLOTS]** Happy Hour: _2X XP!_\n🍖 TIME TO EAT BOIS 🍖`, {
-                files: [responseFinal.images.fixed_height.url]})
+            var url = responseFinal.images.fixed_height.url;
+
+            const embed = new Discord.MessageEmbed()
+              .attachFiles(['./kofta.png'])
+              .setColor('#ffee00')
+              .setThumbnail(url)
+              .setAuthor(client.user.username, 'attachment://kofta.png')
+              .setTitle('**[KOLOTS]** Happy Hour: _2X XP!_')
+              .addFields(
+                { name: 'Avoid Helicopters:', value: `🍖 TIME TO EAT BOIS 🍖`, inline: true })
+
+              message.channel.send(embed);
+              return;
+
+            client.channels.cache.get("401390003919519745").send(embed);
         })
         .catch ((error) => {
             console.log('GIF could not load.');
@@ -71,8 +99,21 @@ client.setInterval(function(){ // Set interval for checking
             var totalResponses = response.data.length;
             var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
             var responseFinal = response.data[responseIndex];
-            client.channels.cache.get("401390003919519745").send(`Hope your 2XP was as good as KOFTA! 😋😋`, {
-                files: [responseFinal.images.fixed_height.url]})
+            var url = responseFinal.images.fixed_height.url;
+
+            const embed = new Discord.MessageEmbed()
+              .attachFiles(['./kofta.png'])
+              .setColor('#ffee00')
+              .setThumbnail(url)
+              .setAuthor(client.user.username, 'attachment://kofta.png')
+              .setTitle('🥳 **Happy Hour is OVER** 🥳')
+              .addFields(
+                { name: 'Press "F" to pay respect:', value: `Hope your 2XP was as good as KOFTA! 😋😋`, inline: true })
+
+              message.channel.send(embed);
+              return;
+
+            client.channels.cache.get("401390003919519745").send(embed);
         })
         .catch ((error) => {
             console.log('GIF could not load.');
@@ -227,7 +268,7 @@ client.on("message", message => {
               .setColor('#ffee00')
               .setThumbnail(url)
               .setAuthor(client.user.username, 'attachment://kofta.png')
-              .setTitle('🔫 __**COD : Modern Warfare**__🔫')
+              .setTitle('🔫 __**COD : Modern Warfare**__ 🔫')
               .addFields(
                 { name: 'Hour of 2XP:', value: `Happy Hour starts at **9PM** for the __**[KOLOTS]**__`, inline: true })
 
