@@ -30,7 +30,7 @@ client.once('ready', () => {
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
     if(date.getHours() === 13 && date.getMinutes() === 0){ // Check the time
-        giphy.search('gifs', {"q": "good morning"})
+        giphy.search('gifs', {"q": "gaming"})
         .then((response) => {
             console.log(response);
             var totalResponses = response.data.length;
@@ -49,7 +49,7 @@ client.setInterval(function(){ // Set interval for checking
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
     if(date.getHours() === 1 && date.getMinutes() === 0){ // Check the time
-        giphy.search('gifs', {"q": "excited"})
+        giphy.search('gifs', {"q": "gaming"})
         .then((response) => {
             console.log(response);
             var totalResponses = response.data.length;
@@ -134,10 +134,10 @@ client.on("message", message => {
         let hours = Math.floor(client.uptime / 3600000) % 24;
         let minutes = Math.floor(client.uptime / 60000) % 60;
         let seconds = Math.floor(client.uptime / 1000) % 60;
-  
+
         message.channel.send(`__Uptime:__\n${days}d ${hours}h ${minutes}m ${seconds}s`);
     }
-    
+
     if (command === 'help') {
         message.channel.send(`*KOFTA version: ${version}*\n**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**U P D A T E S**\n- Regular Debugging\n\n*Questions and recommendations can be DM'ed to the bot. Use the prefix "//" before your message!*`);
     }
@@ -147,9 +147,9 @@ client.on("message", message => {
         var currentDate = new Date().getTime();
         var remainingTime = deadline - currentDate;
 
-        var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24)); 
-        var hours = Math.floor((remainingTime %(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
-        var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60)); 
+        var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((remainingTime %(1000 * 60 * 60 * 24))/(1000 * 60 * 60));
+        var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
         giphy.search('gifs', {"q": "food"})
