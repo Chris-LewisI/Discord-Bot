@@ -123,10 +123,8 @@ client.on("message", message => {
     }
 
     if(command === 'ping') {
-
         giphy.search('gifs', {"q": "ping pong"})
             .then((response) => {
-                console.log(response);
                 var totalResponses = response.data.length;
                 var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
                 var responseFinal = response.data[responseIndex];
@@ -141,7 +139,7 @@ client.on("message", message => {
                   .addFields(
                     { name: 'Developer:', value: 'Pong! (≈**' + client.ws.ping + '**ms)', inline: true })
 
-                  message.reply(embed);
+                  message.send(embed);
                   return;
 
                 // message.channel.send('Pong! (≈**' + client.ws.ping + '**ms)', {
