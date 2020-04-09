@@ -109,7 +109,7 @@ client.on("message", message => {
               .setTitle('Thanks For Your Feedback!')
               .setColor('#0099ff')
               .attachFiles(['./kofta.png'])
-              .setThumbnail('kofta.png')
+              .setThumbnail('attachment://kofta.png')
               .setAuthor(client.user.username, client.user.displayAvatarURL)
               .addFields(
             		{ value: 'Our developer will take it into consideration!', inline: true })
