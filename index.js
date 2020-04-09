@@ -133,7 +133,7 @@ client.on("message", message => {
                 const embed = new Discord.MessageEmbed()
                   .attachFiles(['./kofta.png'])
                   .setColor('#ffee00')
-                  .setThumbnail(url)
+                  .setThumbnail(url, 400, 400)
                   .setAuthor(client.user.username, 'attachment://kofta.png')
                   .setTitle('PING')
                   .addFields(
