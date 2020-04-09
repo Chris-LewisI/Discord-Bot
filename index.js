@@ -137,9 +137,9 @@ client.on("message", message => {
                   .setAuthor(client.user.username, 'attachment://kofta.png')
                   .setTitle('PING')
                   .addFields(
-                    { name: 'Developer:', value: 'Pong! (≈**' + client.ws.ping + '**ms)', inline: true })
+                    { name: 'Server:', value: 'Pong! (≈**' + client.ws.ping + '**ms)', inline: true })
 
-                  message.send(embed);
+                  message.channel.send(embed);
                   return;
 
                 // message.channel.send('Pong! (≈**' + client.ws.ping + '**ms)', {
