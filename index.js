@@ -143,7 +143,7 @@ client.on("message", message => {
     }
 
     if (command === 'fetar') {
-        var deadline = new Date("apr 19, 2020 00:00:00").getTime();
+        var deadline = new Date("apr 19, 2020 04:00:00").getTime();
         var currentDate = new Date().getTime();
         var remainingTime = deadline - currentDate;
 
@@ -152,19 +152,19 @@ client.on("message", message => {
         var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-        giphy.search('gifs', {"q": "food"})
+        giphy.search('gifs', {"q": "let's eat"})
             .then((response) => {
                 console.log(response);
                 var totalResponses = response.data.length;
                 var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
                 var responseFinal = response.data[responseIndex];
-                message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`, {
+                message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`, {
                     files: [responseFinal.images.fixed_height.url]})
             })
             .catch ((error) => {
                 console.log('GIF could not load.')
                 console.log(error);
-                message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours+4}** hrs, **${minutes}** mins, **${seconds}** secs`)
+                message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`)
             })
 
     }
