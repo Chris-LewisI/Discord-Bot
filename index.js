@@ -32,7 +32,6 @@ client.setInterval(function(){ // Set interval for checking
     if(date.getHours() === 13 && date.getMinutes() === 0){ // Check the time
         giphy.search('gifs', {"q": "gaming"})
         .then((response) => {
-            console.log(response);
             var totalResponses = response.data.length;
             var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
             var responseFinal = response.data[responseIndex];
@@ -51,7 +50,6 @@ client.setInterval(function(){ // Set interval for checking
     if(date.getHours() === 1 && date.getMinutes() === 0){ // Check the time
         giphy.search('gifs', {"q": "gaming"})
         .then((response) => {
-            console.log(response);
             var totalResponses = response.data.length;
             var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
             var responseFinal = response.data[responseIndex];
@@ -70,7 +68,6 @@ client.setInterval(function(){ // Set interval for checking
     if(date.getHours() === 2 && date.getMinutes() === 0){ // Check the time
         giphy.search('gifs', {"q": "satisfied"})
         .then((response) => {
-            console.log(response);
             var totalResponses = response.data.length;
             var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
             var responseFinal = response.data[responseIndex];
@@ -101,7 +98,6 @@ client.on("message", message => {
     const command = args.shift().toLowerCase();
 
     if (message.channel.type == "dm") {
-        console.log('Incoming DM...');
         if (message.author.bot) return;
         else {
 
@@ -169,7 +165,6 @@ client.on("message", message => {
     }
 
     if (command === 'help') {
-
       const embed = new Discord.MessageEmbed()
         .attachFiles(['./fallout.gif','./kofta.png'])
         .setColor('#ffee00')
@@ -181,9 +176,6 @@ client.on("message", message => {
 
         message.channel.send(embed);
         return;
-
-
-        // message.channel.send(`*KOFTA version: ${version}*\n**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**U P D A T E S**\n- Regular Debugging\n\n*Questions and recommendations can be DM'ed to the bot. Use the prefix "//" before your message!*`);
     }
 
     if (command === 'fetar') {
@@ -198,12 +190,25 @@ client.on("message", message => {
 
         giphy.search('gifs', {"q": "let's eat"})
             .then((response) => {
-                console.log(response);
                 var totalResponses = response.data.length;
                 var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
                 var responseFinal = response.data[responseIndex];
-                message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`, {
-                    files: [responseFinal.images.fixed_height.url]})
+                var url = responseFinal.images.fixed_height.url;
+
+                const embed = new Discord.MessageEmbed()
+                  .attachFiles(['./kofta.png'])
+                  .setColor('#ffee00')
+                  .setThumbnail(url)
+                  .setAuthor(client.user.username, 'attachment://kofta.png')
+                  .setTitle('🍖 **E N D   O F   L E N T** 🍖')
+                  .addFields(
+                    { name: 'Countdown:', value: `**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`, inline: true })
+
+                  message.channel.send(embed);
+                  return;
+
+                // message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`, {
+                //     files: [responseFinal.images.fixed_height.url]})
             })
             .catch ((error) => {
                 console.log('GIF could not load.')
@@ -215,7 +220,6 @@ client.on("message", message => {
     if (command === 'happy_hour') {
         giphy.search('gifs', {"q": "Modern Warfare"})
         .then((response) => {
-            console.log(response);
             var totalResponses = response.data.length;
             var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
             var responseFinal = response.data[responseIndex];
