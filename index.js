@@ -155,8 +155,6 @@ client.on("message", message => {
         let minutes = Math.floor(client.uptime / 60000) % 60;
         let seconds = Math.floor(client.uptime / 1000) % 60;
 
-        // message.channel.send(`__Uptime:__\n${days}d ${hours}h ${minutes}m ${seconds}s`);
-
         const embed = new Discord.MessageEmbed()
           .attachFiles(['./wifi.png','./kofta.png'])
           .setColor('#ffee00')
@@ -171,7 +169,21 @@ client.on("message", message => {
     }
 
     if (command === 'help') {
-        message.channel.send(`*KOFTA version: ${version}*\n**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**U P D A T E S**\n- Regular Debugging\n\n*Questions and recommendations can be DM'ed to the bot. Use the prefix "//" before your message!*`);
+
+      const embed = new Discord.MessageEmbed()
+        .attachFiles(['./fallout.gif','./kofta.png'])
+        .setColor('#ffee00')
+        .setThumbnail('attachment://fallout.gif')
+        .setAuthor(client.user.username, 'attachment://kofta.png')
+        .setTitle('Help is here!')
+        .addFields(
+          { name: 'Tips and Tricks:', value: `*KOFTA version: ${version}*\n**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**U P D A T E S**\n- Regular Debugging\n\n*Questions and recommendations can be DM'ed to the bot. Use the prefix "//" before your message!*`, inline: true })
+
+        message.channel.send(embed);
+        return;
+
+
+        // message.channel.send(`*KOFTA version: ${version}*\n**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**U P D A T E S**\n- Regular Debugging\n\n*Questions and recommendations can be DM'ed to the bot. Use the prefix "//" before your message!*`);
     }
 
     if (command === 'fetar') {
