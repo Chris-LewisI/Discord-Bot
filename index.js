@@ -141,9 +141,6 @@ client.on("message", message => {
 
                   message.channel.send(embed);
                   return;
-
-                // message.channel.send('Pong! (≈**' + client.ws.ping + '**ms)', {
-                //     files: [responseFinal.images.fixed_height.url]})
             })
             .catch ((error) => {
                 console.log('GIF could not load.')
@@ -158,7 +155,19 @@ client.on("message", message => {
         let minutes = Math.floor(client.uptime / 60000) % 60;
         let seconds = Math.floor(client.uptime / 1000) % 60;
 
-        message.channel.send(`__Uptime:__\n${days}d ${hours}h ${minutes}m ${seconds}s`);
+        // message.channel.send(`__Uptime:__\n${days}d ${hours}h ${minutes}m ${seconds}s`);
+
+        const embed = new Discord.MessageEmbed()
+          .attachFiles(['./kofta.png'])
+          .setColor('#ffee00')
+          .setThumbnail(url, 400, 400)
+          .setAuthor(client.user.username, 'attachment://kofta.png')
+          .setTitle('Server ON 🟢')
+          .addFields(
+            { name: 'Server:', value: `__Uptime:__\n${days}d ${hours}h ${minutes}m ${seconds}s\n*Server uptime resets every update.*`, inline: true })
+
+          message.channel.send(embed);
+          return;
     }
 
     if (command === 'help') {
