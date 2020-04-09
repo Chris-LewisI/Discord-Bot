@@ -106,11 +106,12 @@ client.on("message", message => {
         else {
 
             const embed = new Discord.MessageEmbed()
-              .setTitle('Feedback System')
+              .setTitle('Thanks For Your Feedback!')
+              .setColor('#0099ff')
+              .setThumbnail('https://imgur.com/a/hao9qNW')
               .setAuthor(client.user.username, client.user.displayAvatarURL)
               .addFields(
-            		{ name: 'Thanks For Your Feedback!', value: 'Our developer will take it into consideration!', inline: true }
-              );
+            		{ value: 'Our developer will take it into consideration!', inline: true })
 
             const msg = message.content.slice(prefix.length);//.split(/ +/);
             console.log(`[DM] ${message.author.username}: ${msg}`);
