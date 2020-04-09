@@ -108,7 +108,8 @@ client.on("message", message => {
             const embed = new Discord.MessageEmbed()
               .setTitle('Thanks For Your Feedback!')
               .setColor('#0099ff')
-              .setThumbnail('https://imgur.com/a/hao9qNW')
+              .attachFiles(['./kofta.png'])
+              .setThumbnail('kofta.png')
               .setAuthor(client.user.username, client.user.displayAvatarURL)
               .addFields(
             		{ value: 'Our developer will take it into consideration!', inline: true })
