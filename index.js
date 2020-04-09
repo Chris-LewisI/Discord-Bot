@@ -130,22 +130,8 @@ client.on("message", message => {
                 var totalResponses = response.data.length;
                 var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
                 var responseFinal = response.data[responseIndex];
-
-
-                const embed = new Discord.MessageEmbed()
-                  .attachFiles(['./wifi.png','./kofta.png'])
-                  .setColor('#ffee00')
-                  .setThumbnail('attachment://wifi.png')
-                  .setAuthor(client.user.username, 'attachment://kofta.png')
-                  .setTitle('PING')
-                  .addFields(
-                		{ name: 'Developer:', value: 'Pong! (≈**' + client.ws.ping + '**ms)', {
-                        files: [responseFinal.images.fixed_height.url]}, inline: true })
-
-
-
-                // message.channel.send('Pong! (≈**' + client.ws.ping + '**ms)', {
-                //     files: [responseFinal.images.fixed_height.url]})
+                message.channel.send('Pong! (≈**' + client.ws.ping + '**ms)', {
+                    files: [responseFinal.images.fixed_height.url]})
             })
             .catch ((error) => {
                 console.log('GIF could not load.')
