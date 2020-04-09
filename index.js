@@ -132,14 +132,14 @@ client.on("message", message => {
                 var responseFinal = response.data[responseIndex];
                 var url = responseFinal.images.fixed_height.url;
 
-
-                .attachFiles(['./kofta.png'])
-                .setColor('#ffee00')
-                .setThumbnail(url)
-                .setAuthor(client.user.username, 'attachment://kofta.png')
-                .setTitle('PING')
-                .addFields(
-                  { name: 'Developer:', value: 'Pong! (≈**' + client.ws.ping + '**ms)', inline: true })
+                const embed = new Discord.MessageEmbed()
+                  .attachFiles(['./kofta.png'])
+                  .setColor('#ffee00')
+                  .setThumbnail(url)
+                  .setAuthor(client.user.username, 'attachment://kofta.png')
+                  .setTitle('PING')
+                  .addFields(
+                    { name: 'Developer:', value: 'Pong! (≈**' + client.ws.ping + '**ms)', inline: true })
 
                   message.reply(embed);
                   return;
