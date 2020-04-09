@@ -158,9 +158,9 @@ client.on("message", message => {
         // message.channel.send(`__Uptime:__\n${days}d ${hours}h ${minutes}m ${seconds}s`);
 
         const embed = new Discord.MessageEmbed()
-          .attachFiles(['./kofta.png'])
+          .attachFiles(['./wifi.png','./kofta.png'])
           .setColor('#ffee00')
-          .setThumbnail(url, 400, 400)
+          .setThumbnail('attachment://wifi.png')
           .setAuthor(client.user.username, 'attachment://kofta.png')
           .setTitle('Server ON 🟢')
           .addFields(
