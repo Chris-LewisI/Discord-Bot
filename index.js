@@ -130,8 +130,22 @@ client.on("message", message => {
                 var totalResponses = response.data.length;
                 var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
                 var responseFinal = response.data[responseIndex];
-                message.channel.send('Pong! (≈**' + client.ws.ping + '**ms)', {
-                    files: [responseFinal.images.fixed_height.url]})
+                var url = responseFinal.images.fixed_height.url;
+
+
+                .attachFiles(['./kofta.png'])
+                .setColor('#ffee00')
+                .setThumbnail(url)
+                .setAuthor(client.user.username, 'attachment://kofta.png')
+                .setTitle('PING')
+                .addFields(
+                  { name: 'Developer:', value: 'Pong! (≈**' + client.ws.ping + '**ms)', inline: true })
+
+                  message.reply(embed);
+                  return;
+
+                // message.channel.send('Pong! (≈**' + client.ws.ping + '**ms)', {
+                //     files: [responseFinal.images.fixed_height.url]})
             })
             .catch ((error) => {
                 console.log('GIF could not load.')
