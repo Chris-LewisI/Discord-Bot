@@ -1,7 +1,3 @@
-/*
-KOFTA invite link: https://discordapp.com/api/oauth2/authorize?client_id=696705578529062954&permissions=0&scope=bot
-*/
-
 var today = new Date();
 console.log(`Server Time: ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`);
 console.log(`EST Time: ${today.getHours()-4}:${today.getMinutes()}:${today.getSeconds()}`);
