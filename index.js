@@ -104,9 +104,18 @@ client.on("message", message => {
         console.log('Incoming DM...');
         if (message.author.bot) return;
         else {
+
+            const embed = new Discord.MessageEmbed()
+              .setTitle('Feedback System')
+              .setAuthor(client.user.username, client.user.displayAvatarURL)
+              .addFields(
+            		{ name: 'Thanks For Your Feedback!', value: 'Our developer will take it into consideration!', inline: true }
+              );
+
             const msg = message.content.slice(prefix.length);//.split(/ +/);
             console.log(`[DM] ${message.author.username}: ${msg}`);
-            message.reply("__Thanks for your feedback!__");
+
+            message.reply(embed);
             return;
         }
     }
