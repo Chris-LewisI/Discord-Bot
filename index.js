@@ -46,13 +46,13 @@ client.setInterval(function(){ // Set interval for checking
               .addFields(
                 { name: 'Time To Game:', value: `Rise N' Shine Molokhia Boissss! 🌞`, inline: true })
 
-              client.channels.cache.get("401390003919519745").send(embed);
+              client.channels.cache.get("401395341347520523").send(embed);
               return;
         })
         .catch ((error) => {
             console.log('GIF could not load.');
             console.log(error);
-            client.channels.cache.get("401390003919519745").send(`Rise N' Shine Molokhia Boissss! 🌞`);
+            client.channels.cache.get("401395341347520523").send(`Rise N' Shine Molokhia Boissss! 🌞`);
         })
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
@@ -75,13 +75,13 @@ client.setInterval(function(){ // Set interval for checking
               .addFields(
                 { name: 'Avoid Helicopters:', value: `🍖 TIME TO EAT BOIS 🍖`, inline: true })
 
-              client.channels.cache.get("401390003919519745").send(embed);
+              client.channels.cache.get("401395341347520523").send(embed);
               return;
         })
         .catch ((error) => {
             console.log('GIF could not load.');
             console.log(error);
-            client.channels.cache.get("401390003919519745").send(`**[KOLOTS]** Happy Hour: _2X XP!_\n🍖 TIME TO EAT BOIS 🍖`);
+            client.channels.cache.get("401395341347520523").send(`**[KOLOTS]** Happy Hour: _2X XP!_\n🍖 TIME TO EAT BOIS 🍖`);
         })
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
@@ -104,13 +104,13 @@ client.setInterval(function(){ // Set interval for checking
               .addFields(
                 { name: 'Press "F" to pay respect:', value: `Hope your 2XP was as good as KOFTA! 😋😋`, inline: true })
 
-              client.channels.cache.get("401390003919519745").send(embed);
+              client.channels.cache.get("401395341347520523").send(embed);
               return;
         })
         .catch ((error) => {
             console.log('GIF could not load.');
             console.log(error);
-            client.channels.cache.get("401390003919519745").send(`Hope your 2XP was as good as KOFTA! 😋😋`);
+            client.channels.cache.get("401395341347520523").send(`Hope your 2XP was as good as KOFTA! 😋😋`, files: [url]);
         })
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
