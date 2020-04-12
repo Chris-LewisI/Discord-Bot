@@ -185,9 +185,9 @@ client.on("message", message => {
         let seconds = Math.floor(client.uptime / 1000) % 60;
 
         const embed = new Discord.MessageEmbed()
-          .attachFiles(['./wifi.png','./kofta.png'])
+          .attachFiles(['./server.gif','./kofta.png'])
           .setColor('#ffee00')
-          .setThumbnail('attachment://wifi.png')
+          .setThumbnail('attachment://server.gif')
           .setAuthor(client.user.username, 'attachment://kofta.png')
           .setTitle('Server ON 🟢')
           .addFields(
