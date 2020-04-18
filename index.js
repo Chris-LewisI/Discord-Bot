@@ -221,31 +221,53 @@ client.on("message", message => {
         var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-        giphy.search('gifs', {"q": "let's eat"})
-            .then((response) => {
-                var totalResponses = response.data.length;
-                var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
-                var responseFinal = response.data[responseIndex];
-                var url = responseFinal.images.fixed_height.url;
+        if (remainingTime >= 0) {
+          giphy.search('gifs', {"q": "let's eat"})
+              .then((response) => {
+                  var totalResponses = response.data.length;
+                  var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+                  var responseFinal = response.data[responseIndex];
+                  var url = responseFinal.images.fixed_height.url;
 
-                const embed = new Discord.MessageEmbed()
-                  .attachFiles(['./kofta.png'])
-                  .setColor('#ffee00')
-                  .setThumbnail(url)
-                  .setAuthor(client.user.username, 'attachment://kofta.png')
-                  .setTitle('🍖 **E N D   O F   L E N T** 🍖')
-                  .addFields(
-                    { name: 'Countdown:', value: `**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`, inline: true })
+                  const embed = new Discord.MessageEmbed()
+                    .attachFiles(['./kofta.png'])
+                    .setColor('#ffee00')
+                    .setThumbnail(url)
+                    .setAuthor(client.user.username, 'attachment://kofta.png')
+                    .setTitle('🍖 **E N D   O F   L E N T** 🍖')
+                    .addFields(
+                      { name: 'Countdown:', value: `**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`, inline: true })
 
-                  message.channel.send(embed);
-                  return;
-            })
-            .catch ((error) => {
-                console.log('GIF could not load.')
-                console.log(error);
-                message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`)
-            })
+                    message.channel.send(embed);
+                    return;
+              })
+              .catch ((error) => {
+                  console.log('GIF could not load.')
+                  console.log(error);
+                  message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`)
+              })
+        }
+        else {
+          giphy.search('gifs', {"q": "let's eat"})
+              .then((response) => {
+                  var totalResponses = response.data.length;
+                  var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+                  var responseFinal = response.data[responseIndex];
+                  var url = responseFinal.images.fixed_height.url;
 
+                  const embed = new Discord.MessageEmbed()
+                    .attachFiles(['./kofta.png'])
+                    .setColor('#ffee00')
+                    .setThumbnail(url)
+                    .setAuthor(client.user.username, 'attachment://kofta.png')
+                    .setTitle('🍖 You are in the FETAR! 🍖')
+                    .addFields(
+                      { name: 'Wait is OVER:', value: `Time to eat boiiiisssss!`, inline: true })
+
+                    message.channel.send(embed);
+                    return;
+              })
+        }
     }
     if (command === 'happy_hour') {
         giphy.search('gifs', {"q": "Modern Warfare"})
