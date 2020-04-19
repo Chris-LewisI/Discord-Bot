@@ -117,7 +117,7 @@ client.setInterval(function(){ // Set interval for checking
 
 client.on('ready', () => {
     try {
-        client.user.setStatus('online');
+        client.user.setStatus('dnd');
         client.user.setActivity('with french fries 🍟');
     } catch (error) {
         console.log(error);
