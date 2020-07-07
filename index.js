@@ -212,7 +212,7 @@ client.on("message", message => {
     }
 
     if (command === 'fetar') {
-        var deadline = new Date("apr 19, 2020 04:00:00").getTime();
+        var deadline = new Date("jul 12, 2020 04:00:00").getTime();
         var currentDate = new Date().getTime();
         var remainingTime = deadline - currentDate;
 
