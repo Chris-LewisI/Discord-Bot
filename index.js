@@ -234,7 +234,7 @@ client.on("message", message => {
                     .setColor('#ffee00')
                     .setThumbnail(url)
                     .setAuthor(client.user.username, 'attachment://kofta.png')
-                    .setTitle('🍖 **E N D   O F   L E N T** 🍖')
+                    .setTitle('🍖 **E N D   O F   A P O S T L E S  F A S T** 🍖')
                     .addFields(
                       { name: 'Countdown:', value: `**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`, inline: true })
 
