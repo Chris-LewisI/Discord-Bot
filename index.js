@@ -29,35 +29,6 @@ client.once('ready', () => {
 
 client.setInterval(function(){ // Set interval for checking
     var date = new Date(); // Create a Date object to find out what time it is
-    // if(date.getHours() === 13 && date.getMinutes() === 0){ // Check the time
-    //     giphy.search('gifs', {"q": "gaming"})
-    //     .then((response) => {
-    //         var totalResponses = response.data.length;
-    //         var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
-    //         var responseFinal = response.data[responseIndex];
-    //         var url = responseFinal.images.fixed_height.url;
-
-    //         const embed = new Discord.MessageEmbed()
-    //           .attachFiles(['./kofta.png'])
-    //           .setColor('#ffee00')
-    //           .setThumbnail(url)
-    //           .setAuthor(client.user.username, 'attachment://kofta.png')
-    //           .setTitle('**Morning Gentlemen!**')
-    //           .addFields(
-    //             { name: 'Time To Game:', value: `Rise N' Shine Molokhia Boissss! 🌞`, inline: true })
-
-    //           client.channels.cache.get("401395341347520523").send(embed);
-    //           return;
-    //     })
-    //     .catch ((error) => {
-    //         console.log('GIF could not load.');
-    //         console.log(error);
-    //         client.channels.cache.get("401395341347520523").send(`Rise N' Shine Molokhia Boissss! 🌞`);
-    //     })
-    // }
-}, 60000); // Repeat every x milliseconds (1 minute)
-client.setInterval(function(){ // Set interval for checking
-    var date = new Date(); // Create a Date object to find out what time it is
     if(date.getHours() === 1 && date.getMinutes() === 0){ // Check the time
         giphy.search('gifs', {"q": "gaming"})
         .then((response) => {
@@ -117,7 +88,7 @@ client.setInterval(function(){ // Set interval for checking
 
 client.on('ready', () => {
     try {
-        client.user.setStatus('dnd');
+        client.user.setStatus('idle');
         client.user.setActivity('with french fries 🍟');
     } catch (error) {
         console.log(error);
