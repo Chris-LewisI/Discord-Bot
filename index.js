@@ -21,10 +21,14 @@ const client = new Discord.Client();//client is what will connect to the discord
 client.login(token); //allows bot to login into the server with a token.
 console.log('BOT = [LOGGED IN]');
 
-client.once('ready', () => {
+client.on('ready', () => {
     console.log('BOT = [ACTIVE]')
-    //Announcement
-    //client.channels.cache.get("401390003919519745").send(``);
+    try {
+        client.user.setStatus('idle');
+        client.user.setActivity('with french fries 🍟');
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 client.setInterval(function(){ // Set interval for checking
@@ -85,15 +89,6 @@ client.setInterval(function(){ // Set interval for checking
         })
     }
 }, 60000); // Repeat every x milliseconds (1 minute)
-
-client.on('ready', () => {
-    try {
-        client.user.setStatus('idle');
-        client.user.setActivity('with french fries 🍟');
-    } catch (error) {
-        console.log(error);
-    }
-})
 
 client.on("message", message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
