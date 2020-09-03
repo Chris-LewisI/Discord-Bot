@@ -1,4 +1,6 @@
 const assets = require('./assets')
+require('dotenv').config()
+
 var today = new Date()
 
 console.log(`Server Time: ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`)
@@ -8,7 +10,7 @@ console.log('BOT = [STARTING...]')
 
 const Discord = require('discord.js')// imports discord.js library
 
-const { prefix, token, giphyAPIToken } = require('./config.json')// values I defined within the config file.
+const { prefix, token, giphyAPIToken, giphySDKToken } = require('./config')// values I defined within the config file.
 const { version } = require('./package.json') // provides with package version number
 
 var GphApiClient = require('giphy-js-sdk-core')
