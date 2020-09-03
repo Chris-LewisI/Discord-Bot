@@ -9,7 +9,7 @@ console.log(`EST Time: ${today.getHours() - 4}:${today.getMinutes()}:${today.get
 console.log('BOT = [STARTING...]')
 
 const Discord = require('discord.js')// imports discord.js library
-
+const { fallout, server, kofta, thumbUp } = require('./assets')
 const { prefix, token, giphyAPIToken, giphySDKToken } = require('./config')// values I defined within the config file.
 const { version } = require('./package.json') // provides with package version number
 
@@ -42,7 +42,7 @@ client.setInterval(function () { // Set interval for checking
         var url = responseFinal.images.fixed_height.url
 
         const embed = new Discord.MessageEmbed()
-          .attachFiles(['./kofta.png'])
+          .attachFiles([kofta])
           .setColor('#ffee00')
           .setThumbnail(url)
           .setAuthor(client.user.username, 'attachment://kofta.png')
@@ -98,7 +98,7 @@ client.on('message', message => {
     if (message.author.bot) return
     else {
       const embed = new Discord.MessageEmbed()
-        .attachFiles(['./thumbUp.png', './kofta.png'])
+        .attachFiles([thumbUp, kofta])
         .setColor('#ffee00')
         .setThumbnail('attachment://thumbUp.png')
         .setAuthor(client.user.username, 'attachment://kofta.png')
@@ -122,7 +122,7 @@ client.on('message', message => {
         var url = responseFinal.images.fixed_height.url
 
         const embed = new Discord.MessageEmbed()
-          .attachFiles(['./kofta.png'])
+          .attachFiles([kofta])
           .setColor('#ffee00')
           .setThumbnail(url, 400, 400)
           .setAuthor(client.user.username, 'attachment://kofta.png')
@@ -146,7 +146,7 @@ client.on('message', message => {
     const seconds = Math.floor(client.uptime / 1000) % 60
 
     const embed = new Discord.MessageEmbed()
-      .attachFiles(['./server.gif', './kofta.png'])
+      .attachFiles([server, kofta])
       .setColor('#ffee00')
       .setThumbnail('attachment://server.gif')
       .setAuthor(client.user.username, 'attachment://kofta.png')
@@ -160,7 +160,7 @@ client.on('message', message => {
 
   if (command === 'help') {
     const embed = new Discord.MessageEmbed()
-      .attachFiles(['./fallout.gif', './kofta.png'])
+      .attachFiles([fallout, kofta])
       .setColor('#ffee00')
       .setThumbnail('attachment://fallout.gif')
       .setAuthor(client.user.username, 'attachment://kofta.png')
@@ -191,7 +191,7 @@ client.on('message', message => {
           var url = responseFinal.images.fixed_height.url
 
           const embed = new Discord.MessageEmbed()
-            .attachFiles(['./kofta.png'])
+            .attachFiles([kofta])
             .setColor('#ffee00')
             .setThumbnail(url)
             .setAuthor(client.user.username, 'attachment://kofta.png')
@@ -215,7 +215,7 @@ client.on('message', message => {
           var url = responseFinal.images.fixed_height.url
 
           const embed = new Discord.MessageEmbed()
-            .attachFiles(['./kofta.png'])
+            .attachFiles([kofta])
             .setColor('#ffee00')
             .setThumbnail(url)
             .setAuthor(client.user.username, 'attachment://kofta.png')
@@ -236,7 +236,7 @@ client.on('message', message => {
         var url = responseFinal.images.fixed_height.url
 
         const embed = new Discord.MessageEmbed()
-          .attachFiles(['./kofta.png'])
+          .attachFiles([kofta])
           .setColor('#ffee00')
           .setThumbnail(url)
           .setAuthor(client.user.username, 'attachment://kofta.png')
