@@ -113,6 +113,33 @@ client.on('message', message => {
     }
   }
 
+
+  if (command === 'warzone') {
+    giphy.search('gifs', { q: 'warzone' })
+      .then((response) => {
+        var totalResponses = response.data.length
+        var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses
+        var responseFinal = response.data[responseIndex]
+        var url = responseFinal.images.fixed_height.url
+
+        const embed = new Discord.MessageEmbed()
+          .attachFiles([kofta])
+          .setColor('#ffee00')
+          .setThumbnail(url, 400, 400)
+          .setAuthor(client.user.username, 'attachment://kofta.png')
+          .setTitle('PATCH NOTES')
+          .addFields(
+            { name: 'Server:', value: 'https://www.infinityward.com/news', inline: true })
+
+        message.channel.send(embed)
+      })
+      .catch((error) => {
+        console.log('GIF could not load.')
+        console.log(error)
+        message.channel.send('https://www.infinityward.com/news')
+      })
+  }
+
   if (command === 'ping') {
     giphy.search('gifs', { q: 'ping pong' })
       .then((response) => {
