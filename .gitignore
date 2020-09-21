@@ -3,3 +3,7 @@ config.json
 .vscode
 node_modules/
 .env
+.gitignore
+._.DS_Store
+._Udemy
+.DS_Store
