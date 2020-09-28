@@ -127,7 +127,7 @@ client.on('message', message => {
   const args = message.content.slice(prefix.length).split(/ +/)
   const command = args.shift().toLowerCase()
 
-  // if (message.channel.type === 'dm') {
+  if (message.channel.type === 'dm') {
     if (message.author.bot) return
     else {
       const embed = new Discord.MessageEmbed()
@@ -152,7 +152,7 @@ client.on('message', message => {
       message.reply(embed)
       return
     }
-  // }
+  }
 
 
   if (command === 'warzone') {
