@@ -1,6 +1,5 @@
 const assets = require('./assets')
 require('dotenv').config()
-const fs = require("fs");
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 var today = new Date()
@@ -45,23 +44,33 @@ client.on('ready', () => {
 
 //welcome to server message and role assignment
 client.on('guildMemberAdd', member => {
-  const welcomeChannel = member.guild.channels.cache.find(ch => ch.name.includes('general'));
-  const welcomeText = `Welcome <@${member.user.id}> to ${member.guild.name}!`;
-  member.roles.add(member.guild.roles.cache.find(role => role.name === "🐢Delinquents🦑"));
+  if(member.user.bot == true) {
+    member.roles.add(member.guild.roles.cache.find(role => role.name === "🚦BOTS🚦"));
+  }
+  else {
+    const welcomeChannel = member.guild.channels.cache.find(ch => ch.name.includes('general'));
+    const welcomeText = `Welcome <@${member.user.id}> to ${member.guild.name}!`;
+    member.roles.add(member.guild.roles.cache.find(role => role.name === "🐢Delinquents🦑"));
 
-  Promise.resolve(welcomeText).then(function (welcomeText) {
-    welcomeChannel.send(welcomeText);
-  });
+    Promise.resolve(welcomeText).then(function (welcomeText) {
+      welcomeChannel.send(welcomeText);
+    });
+  }
 });
 
 //farewell from server message
 client.on('guildMemberRemove', member => {
-  const leaveChannel = member.guild.channels.cache.find(ch => ch.name.includes('general'));
-  const farewellText = `We're sorry to see you leaving ${member.user.tag}!`
+  if(member.user.bot == true) {
+    console.log(`BOT: ${member.user.tag} has been removed.`);
+  }
+  else {
+    const leaveChannel = member.guild.channels.cache.find(ch => ch.name.includes('general'));
+    const farewellText = `We're sorry to see you leaving ${member.user.tag}!`
 
-  Promise.resolve(farewellText).then(function (farewellText) {
-    leaveChannel.send(farewellText);
-  });
+    Promise.resolve(farewellText).then(function (farewellText) {
+      leaveChannel.send(farewellText);
+    });
+  }
 });
 
 client.setInterval(function () { // Set interval for checking
