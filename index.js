@@ -31,6 +31,27 @@ client.on('ready', () => {
   }
 })
 
+//welcome to server message and role assignment
+client.on('guildMemberAdd', member => {
+  const welcomeChannel = member.guild.channels.cache.find(ch => ch.name.includes('general'));
+  const welcomeText = `Welcome <@${member.user.id}> to ${member.guild.name}!`;
+  member.roles.add(member.guild.roles.cache.find(role => role.name === "🐢Delinquents🦑"));
+
+  Promise.resolve(welcomeText).then(function (welcomeText) {
+    welcomeChannel.send(welcomeText);
+  });
+});
+
+//farewell from server message
+client.on('guildMemberRemove', member => {
+  const leaveChannel = member.guild.channels.cache.find(ch => ch.name.includes('general'));
+  const farewellText = `We're sorry to see you leaving ${member.user.tag}!`
+
+  Promise.resolve(farewellText).then(function (farewellText) {
+    leaveChannel.send(farewellText);
+  });
+});
+
 client.setInterval(function () { // Set interval for checking
   var date = new Date() // Create a Date object to find out what time it is
   if (date.getHours() === 1 && date.getMinutes() === 0) { // Check the time
@@ -140,33 +161,7 @@ client.on('message', message => {
       })
   }
 
-  if (command === 'ping') {
-    giphy.search('gifs', { q: 'ping pong' })
-      .then((response) => {
-        var totalResponses = response.data.length
-        var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses
-        var responseFinal = response.data[responseIndex]
-        var url = responseFinal.images.fixed_height.url
-
-        const embed = new Discord.MessageEmbed()
-          .attachFiles([kofta])
-          .setColor('#ffee00')
-          .setThumbnail(url, 400, 400)
-          .setAuthor(client.user.username, 'attachment://kofta.png')
-          .setTitle('PING')
-          .addFields(
-            { name: 'Server:', value: 'Pong! (≈**' + client.ws.ping + '**ms)', inline: true })
-
-        message.channel.send(embed)
-      })
-      .catch((error) => {
-        console.log('GIF could not load.')
-        console.log(error)
-        message.channel.send('Pong! (~ ' + client.ws.ping + 'ms)')
-      })
-  }
-
-  if (command === 'uptime') {
+  if (command === 'info') {
     const days = Math.floor(client.uptime / 86400000)
     const hours = Math.floor(client.uptime / 3600000) % 24
     const minutes = Math.floor(client.uptime / 60000) % 60
@@ -179,7 +174,7 @@ client.on('message', message => {
       .setAuthor(client.user.username, 'attachment://kofta.png')
       .setTitle('Server ON 🟢')
       .addFields(
-        { name: 'Server:', value: `__Uptime:__\n${days}d ${hours}h ${minutes}m ${seconds}s\n*Server uptime resets every update.*`, inline: true })
+        { name: 'Server:', value: `**UPTIME:** ${days}d ${hours}h ${minutes}m ${seconds}s\n**PING:** ${client.ws.ping}ms`, inline: true })
 
     message.channel.send(embed)
     return
@@ -193,67 +188,12 @@ client.on('message', message => {
       .setAuthor(client.user.username, 'attachment://kofta.png')
       .setTitle('Help is here!')
       .addFields(
-        { name: 'Tips and Tricks:', value: `*KOFTA version: ${version}*\n**C O M M A N D S**\n- "//fetar" : Shows a countdown until Lent is over! 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//uptime" : Shows how long since KOFTA's last update\n- "//ping" : Tells you KOFTA's ping (ms)\n**U P D A T E S**\n- Regular Debugging\n\n*Questions and recommendations can be DM'ed to the bot. Use the prefix "//" before your message!*`, inline: true })
+        { name: 'KOFTA Version:', value: `*${version}*\n**C O M M A N D S**\n- "//warzone" : Gives you access to Call Of Duty: Warzone patch notes 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//info" : Displays KOFTA's uptime and ping!\n**U P D A T E S**\n- Regular Debugging\n\n*Questions and recommendations can be DM'ed to the bot. Use the prefix "//" before your message!*`, inline: true })
 
     message.channel.send(embed)
     return
   }
 
-  if (command === 'fetar') {
-    var deadline = new Date('jul 12, 2020 04:00:00').getTime()
-    var currentDate = new Date().getTime()
-    var remainingTime = deadline - currentDate
-
-    var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24))
-    var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60))
-    var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000)
-
-    if (remainingTime >= 0) {
-      giphy.search('gifs', { q: "let's eat" })
-        .then((response) => {
-          var totalResponses = response.data.length
-          var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses
-          var responseFinal = response.data[responseIndex]
-          var url = responseFinal.images.fixed_height.url
-
-          const embed = new Discord.MessageEmbed()
-            .attachFiles([kofta])
-            .setColor('#ffee00')
-            .setThumbnail(url)
-            .setAuthor(client.user.username, 'attachment://kofta.png')
-            .setTitle('🍖 **E N D   O F   A P O S T L E S  F A S T** 🍖')
-            .addFields(
-              { name: 'Countdown:', value: `**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`, inline: true })
-
-          message.channel.send(embed)
-        })
-        .catch((error) => {
-          console.log('GIF could not load.')
-          console.log(error)
-          message.channel.send(`🍖 **E N D   O F   L E N T** 🍖\n**${days}** days, **${hours}** hrs, **${minutes}** mins, **${seconds}** secs`)
-        })
-    } else {
-      giphy.search('gifs', { q: "let's eat" })
-        .then((response) => {
-          var totalResponses = response.data.length
-          var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses
-          var responseFinal = response.data[responseIndex]
-          var url = responseFinal.images.fixed_height.url
-
-          const embed = new Discord.MessageEmbed()
-            .attachFiles([kofta])
-            .setColor('#ffee00')
-            .setThumbnail(url)
-            .setAuthor(client.user.username, 'attachment://kofta.png')
-            .setTitle('🍖 You are in the FETAR! 🍖')
-            .addFields(
-              { name: 'Wait is OVER:', value: 'Time to eat boiiiisssss!', inline: true })
-
-          message.channel.send(embed)
-        })
-    }
-  }
   if (command === 'happy_hour') {
     giphy.search('gifs', { q: 'Modern Warfare' })
       .then((response) => {
