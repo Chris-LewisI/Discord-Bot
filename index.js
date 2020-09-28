@@ -1,5 +1,7 @@
 const assets = require('./assets')
 require('dotenv').config()
+const fs = require("fs");
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 var today = new Date()
 
@@ -17,6 +19,16 @@ var GphApiClient = require('giphy-js-sdk-core')
 const giphy = GphApiClient(giphyAPIToken)
 
 const client = new Discord.Client()// client is what will connect to the discord server
+
+// As of right now the code creates a new dms.csv file everytime the server is reset (NEEDS TO BE FIXED!!!)
+const dbPath = "./dms.csv"
+const csvWriter = createCsvWriter({
+  path: `${dbPath}`,
+  header: [
+    {id: 'username', title: 'User'},
+    {id: 'message', title: 'Message'}
+  ]
+});
 
 client.login(token) // allows bot to login into the server with a token.
 console.log('BOT = [LOGGED IN]')
@@ -115,7 +127,7 @@ client.on('message', message => {
   const args = message.content.slice(prefix.length).split(/ +/)
   const command = args.shift().toLowerCase()
 
-  if (message.channel.type === 'dm') {
+  // if (message.channel.type === 'dm') {
     if (message.author.bot) return
     else {
       const embed = new Discord.MessageEmbed()
@@ -129,10 +141,18 @@ client.on('message', message => {
       const msg = message.content.slice(prefix.length)
       console.log(`[DM] ${message.author.username}: ${msg}`)
 
+      //saves message from user to CSV file on server or locally (wherever the bot is running)
+      const data = [{
+        username: message.author.username,
+        message: msg
+      }];
+
+      csvWriter.writeRecords(data);
+
       message.reply(embed)
       return
     }
-  }
+  // }
 
 
   if (command === 'warzone') {
