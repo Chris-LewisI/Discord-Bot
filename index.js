@@ -1,23 +1,13 @@
-const assets = require('./assets')
-require('dotenv').config()
+const assets = require('./assets');
+require('dotenv').config();
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-
-var today = new Date()
-
-console.log(`Server Time: ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`)
-console.log(`EST Time: ${today.getHours() - 4}:${today.getMinutes()}:${today.getSeconds()}`)
-
-console.log('BOT = [STARTING...]')
-
-const Discord = require('discord.js')// imports discord.js library
-const { fallout, server, kofta, thumbUp } = require('./assets')
-const { prefix, token, giphyAPIToken, giphySDKToken } = require('./config')// values I defined within the config file.
-const { version } = require('./package.json') // provides with package version number
-
-var GphApiClient = require('giphy-js-sdk-core')
-const giphy = GphApiClient(giphyAPIToken)
-
-const client = new Discord.Client()// client is what will connect to the discord server
+const Discord = require('discord.js');
+const { fallout, server, kofta, thumbUp } = require('./assets');
+const { prefix, token, giphyAPIToken, giphySDKToken } = require('./config');
+const { version } = require('./package.json');
+var GphApiClient = require('giphy-js-sdk-core');
+const giphy = GphApiClient(giphyAPIToken);
+const client = new Discord.Client()
 
 // As of right now the code creates a new dms.csv file everytime the server is reset (NEEDS TO BE FIXED!!!)
 const dbPath = "./dms.csv"
@@ -72,63 +62,6 @@ client.on('guildMemberRemove', member => {
     });
   }
 });
-
-client.setInterval(function () { // Set interval for checking
-  var date = new Date() // Create a Date object to find out what time it is
-  if (date.getHours() === 1 && date.getMinutes() === 0) { // Check the time
-    giphy.search('gifs', { q: 'gaming' })
-      .then((response) => {
-        var totalResponses = response.data.length
-        var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses
-        var responseFinal = response.data[responseIndex]
-        var url = responseFinal.images.fixed_height.url
-
-        const embed = new Discord.MessageEmbed()
-          .attachFiles([kofta])
-          .setColor('#ffee00')
-          .setThumbnail(url)
-          .setAuthor(client.user.username, 'attachment://kofta.png')
-          .setTitle('**[KOLOTS]** Happy Hour: _2X XP!_')
-          .addFields(
-            { name: 'Avoid Helicopters:', value: '🍖 TIME TO EAT BOIS 🍖', inline: true })
-
-        client.channels.cache.get('401395341347520523').send(embed)
-      })
-      .catch((error) => {
-        console.log('GIF could not load.')
-        console.log(error)
-        client.channels.cache.get('401395341347520523').send('**[KOLOTS]** Happy Hour: _2X XP!_\n🍖 TIME TO EAT BOIS 🍖')
-      })
-  }
-}, 60000) // Repeat every x milliseconds (1 minute)
-client.setInterval(function () { // Set interval for checking
-  var date = new Date() // Create a Date object to find out what time it is
-  if (date.getHours() === 2 && date.getMinutes() === 0) { // Check the time
-    giphy.search('gifs', { q: 'satisfied' })
-      .then((response) => {
-        var totalResponses = response.data.length
-        var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses
-        var responseFinal = response.data[responseIndex]
-        var url = responseFinal.images.fixed_height.url
-
-        const embed = new Discord.MessageEmbed()
-          .attachFiles([assets.kofta])
-          .setColor('#ffee00')
-          .setThumbnail(url)
-          .setAuthor(client.user.username, 'attachment://kofta.png')
-          .setTitle('🥳 **Happy Hour is OVER** 🥳')
-          .addFields(
-            { name: 'Press "F" to pay respect:', value: 'Hope your 2XP was as good as KOFTA! 😋😋', inline: true })
-
-        client.channels.cache.get('401395341347520523').send(embed)
-      })
-      .catch((error) => {
-        console.log('GIF could not load.')
-        console.log(error)
-        client.channels.cache.get('401395341347520523').send('Hope your 2XP was as good as KOFTA! 😋😋')
-      })
-  }
-}, 60000) // Repeat every x milliseconds (1 minute)
 
 client.on('message', message => {
   if (!message.content.startsWith(prefix) || message.author.bot) return
