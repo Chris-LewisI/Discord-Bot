@@ -40,7 +40,7 @@ client.on('guildMemberAdd', member => {
   else {
     const welcomeChannel = member.guild.channels.cache.find(ch => ch.name.includes('general'));
     const welcomeText = `Welcome to ${member.guild.name}, <@${member.user.id}>!`;
-    member.roles.add(member.guild.roles.cache.find(role => role.name === "🐢Delinquents🦑"));
+    member.roles.add(member.guild.roles.cache.find(role => role.name === "🐢Little Boys🦑"));
 
     Promise.resolve(welcomeText).then(function (welcomeText) {
       welcomeChannel.send(welcomeText);
