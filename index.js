@@ -25,7 +25,7 @@ console.log('BOT = [LOGGED IN]')
 client.on('ready', () => {
   console.log('BOT = [ACTIVE]')
   try {
-    client.user.setStatus('dnd')
+    client.user.setStatus('away')
     client.user.setActivity('with french fries 🍟')
   } catch (error) {
     console.log(error)
