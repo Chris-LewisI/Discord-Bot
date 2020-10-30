@@ -1,3 +1,4 @@
+console.time('KOFTA startup')
 const assets = require('./assets');
 require('dotenv').config();
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
@@ -27,11 +28,11 @@ client.on('ready', () => {
   try {
     client.user.setStatus('away')
     client.user.setActivity('with french fries 🍟')
+    console.timeEnd('KOFTA startup')
   } catch (error) {
     console.log(error)
   }
 })
-
 //welcome to server message and role assignment
 client.on('guildMemberAdd', member => {
   if(member.user.bot == true) {
