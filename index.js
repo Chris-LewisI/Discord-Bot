@@ -190,16 +190,18 @@ client.on('message', message => {
 client.on('messageReactionAdd', (reaction, user) => {
   const { name } = reaction.emoji;
   const member = reaction.message.guild.members.cache.get(user.id);
-  if (reaction.message.id === '772595126852911114') {
-    switch (name) {
-      case '🔥':
-        member.roles.add('772590496697679873');
-        console.log(`Team Pyro: ${member}`);
-        break;
-      case '🌊':
-        member.roles.add('772590499230908436');
-        console.log(`Team Ocean: ${member}`);
-        break;
+  if (user.bot == false) {
+    if (reaction.message.id === '772595126852911114') {
+      switch (name) {
+        case '🔥':
+          member.roles.add('772590496697679873');
+          console.log(`Team Pyro: ${member}`);
+          break;
+        case '🌊':
+          member.roles.add('772590499230908436');
+          console.log(`Team Ocean: ${member}`);
+          break;
+      }
     }
   }
 })
@@ -207,16 +209,18 @@ client.on('messageReactionAdd', (reaction, user) => {
 client.on('messageReactionRemove', (reaction, user) => {
   const { name } = reaction.emoji;
   const member = reaction.message.guild.members.cache.get(user.id);
-  if (reaction.message.id === '772595126852911114') {
-    switch (name) {
-      case '🔥':
-        member.roles.remove('772590496697679873');
-        console.log(`Removed: ${member}`);
-        break;
-      case '🌊':
-        member.roles.remove('772590499230908436');
-        console.log(`Removed: ${member}`);
-        break;
+  if (user.bot == false) {
+    if (reaction.message.id === '772595126852911114') {
+      switch (name) {
+        case '🔥':
+          member.roles.remove('772590496697679873');
+          console.log(`Removed: ${member}`);
+          break;
+        case '🌊':
+          member.roles.remove('772590499230908436');
+          console.log(`Removed: ${member}`);
+          break;
+      }
     }
   }
 })
