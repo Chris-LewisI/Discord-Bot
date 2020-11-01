@@ -184,6 +184,34 @@ client.on('message', message => {
         message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫')
       })
   }
+
+  if (command === 'tournament') {
+    giphy.search('gifs', { q: 'Excited' })
+      .then((response) => {
+        var totalResponses = response.data.length
+        var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses
+        var responseFinal = response.data[responseIndex]
+        var url = responseFinal.images.fixed_height.url
+
+        const embed = new Discord.MessageEmbed()
+          .attachFiles([kofta])
+          .setColor('#ffee00')
+          .setThumbnail(url)
+          .setAuthor(client.user.username, 'attachment://kofta.png')
+          .setTitle('🔫 __**WARZONE TOURNAMENT TIME**__ 🔫')
+          .addFields(
+            { name: 'Team Assignment:', value: 'React with 🔥 for team __**[PYRO]**__\nReact with 🌊 for team __**[OCEAN]**__', inline: true })
+
+        message.channel.send(embed);
+        message.react('🔥');
+        message.react('🌊');
+      })
+      .catch((error) => {
+        console.log('GIF could not load.')
+        console.log(error)
+        message.channel.send('WARZONE TOURNAMENT!')
+      })
+  }
 })
 
 //manage teams for warzone tournaments
@@ -191,7 +219,7 @@ client.on('messageReactionAdd', (reaction, user) => {
   const { name } = reaction.emoji;
   const member = reaction.message.guild.members.cache.get(user.id);
   if (user.bot == false) {
-    if (reaction.message.id === '772595126852911114') {
+    // if (reaction.message.id === '772595126852911114') {
       switch (name) {
         case '🔥':
           member.roles.add('772590496697679873');
@@ -202,7 +230,7 @@ client.on('messageReactionAdd', (reaction, user) => {
           console.log(`Team Ocean: ${member}`);
           break;
       }
-    }
+    // }
   }
 })
 
@@ -210,7 +238,7 @@ client.on('messageReactionRemove', (reaction, user) => {
   const { name } = reaction.emoji;
   const member = reaction.message.guild.members.cache.get(user.id);
   if (user.bot == false) {
-    if (reaction.message.id === '772595126852911114') {
+    // if (reaction.message.id === '772595126852911114') {
       switch (name) {
         case '🔥':
           member.roles.remove('772590496697679873');
@@ -221,6 +249,6 @@ client.on('messageReactionRemove', (reaction, user) => {
           console.log(`Removed: ${member}`);
           break;
       }
-    }
+    // }
   }
 })
