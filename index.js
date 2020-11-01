@@ -203,3 +203,20 @@ client.on('messageReactionAdd', (reaction, user) => {
     }
   }
 })
+
+client.on('messageReactionRemove', (reaction, user) => {
+  const { name } = reaction.emoji;
+  const member = reaction.message.guild.members.cache.get(user.id);
+  if (reaction.message.id === '772595126852911114') {
+    switch (name) {
+      case '🔥':
+        member.roles.remove('772590496697679873');
+        console.log(`Team Pyro: ${members.user.tag}`);
+        break;
+      case '🌊':
+        member.roles.remove('772590499230908436');
+        console.log(`Team Ocean: ${members.user.tag}`);
+        break;
+    }
+  }
+})
