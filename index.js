@@ -7,7 +7,9 @@ const { prefix, token, giphyAPIToken, giphySDKToken } = require('./config');
 const { version } = require('./package.json');
 var GphApiClient = require('giphy-js-sdk-core');
 const giphy = GphApiClient(giphyAPIToken);
-const client = new Discord.Client()
+const client = new Discord.Client({
+  partials: ['MESSAGE', 'REACTION']
+});
 
 // As of right now the code creates a new dms.csv file that replaces the previous one everytime the server is reset.
 // (NEEDS TO BE FIXED!!!)
