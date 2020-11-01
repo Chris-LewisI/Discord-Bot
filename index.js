@@ -188,15 +188,15 @@ client.on('message', message => {
 
 //manage teams for warzone tournaments
 client.on('messageReactionAdd', (reaction, user) => {
-  const { react } = reaction.emoji;
+  const { name } = reaction.emoji;
   const member = reaction.message.guild.members.cache.get(user.id);
-  if (reaction.message.id === '772589331503775785') {
-    switch (react) {
-      case ':fire:':
+  if (reaction.message.id === '772595126852911114') {
+    switch (name) {
+      case '🔥':
         member.roles.add('772590496697679873');
         console.log("Pyro role assigned");
         break;
-      case ':ocean:':
+      case '🌊':
         member.roles.add('772590499230908436');
         console.log("Ocean role assigned");
         break;
