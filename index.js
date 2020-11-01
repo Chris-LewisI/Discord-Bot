@@ -183,3 +183,19 @@ client.on('message', message => {
       })
   }
 })
+
+//manage teams for warzone tournaments
+client.on('messageReactionAdd', (reaction, user) => {
+  const { react } = reaction.emoji;
+  const member = reaction.message.guild.members.cache.get(user.id);
+  if (reaction.message.id === '772589331503775785') {
+    switch (react) {
+      case ':fire:':
+        member.roles.add('772590496697679873');
+        break;
+      case ':ocean:':
+        member.roles.add('772590499230908436');
+        break;
+    }
+  }
+})
