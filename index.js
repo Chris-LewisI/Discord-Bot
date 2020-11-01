@@ -192,9 +192,11 @@ client.on('messageReactionAdd', (reaction, user) => {
     switch (react) {
       case ':fire:':
         member.roles.add('772590496697679873');
+        console.log("Pyro role assigned");
         break;
       case ':ocean:':
         member.roles.add('772590499230908436');
+        console.log("Ocean role assigned");
         break;
     }
   }
