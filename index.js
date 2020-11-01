@@ -219,7 +219,7 @@ client.on('messageReactionAdd', (reaction, user) => {
   const { name } = reaction.emoji;
   const member = reaction.message.guild.members.cache.get(user.id);
   if (user.bot == false) {
-    // if (reaction.message.id === '772595126852911114') {
+    if (reaction.message.content === '$tournament') {
       switch (name) {
         case '🔥':
           member.roles.add('772590496697679873');
@@ -230,7 +230,7 @@ client.on('messageReactionAdd', (reaction, user) => {
           console.log(`Team Ocean: ${member}`);
           break;
       }
-    // }
+    }
   }
 })
 
@@ -238,7 +238,7 @@ client.on('messageReactionRemove', (reaction, user) => {
   const { name } = reaction.emoji;
   const member = reaction.message.guild.members.cache.get(user.id);
   if (user.bot == false) {
-    // if (reaction.message.id === '772595126852911114') {
+    if (reaction.message.content === '$tournament') {
       switch (name) {
         case '🔥':
           member.roles.remove('772590496697679873');
@@ -249,6 +249,6 @@ client.on('messageReactionRemove', (reaction, user) => {
           console.log(`Removed: ${member}`);
           break;
       }
-    // }
+    }
   }
 })
