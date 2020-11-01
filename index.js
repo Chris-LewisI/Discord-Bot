@@ -1,5 +1,4 @@
 console.time('KOFTA startup')
-// const assets = require('./assets');
 require('dotenv').config();
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const Discord = require('discord.js');
