@@ -211,11 +211,11 @@ client.on('messageReactionRemove', (reaction, user) => {
     switch (name) {
       case '🔥':
         member.roles.remove('772590496697679873');
-        console.log(`Team Pyro: ${members.user.tag}`);
+        console.log(`Removed: ${members.user.tag}`);
         break;
       case '🌊':
         member.roles.remove('772590499230908436');
-        console.log(`Team Ocean: ${members.user.tag}`);
+        console.log(`Removed: ${members.user.tag}`);
         break;
     }
   }
