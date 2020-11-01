@@ -194,11 +194,11 @@ client.on('messageReactionAdd', (reaction, user) => {
     switch (name) {
       case '🔥':
         member.roles.add('772590496697679873');
-        console.log("Pyro role assigned");
+        console.log(`Team Pyro: ${member}`);
         break;
       case '🌊':
         member.roles.add('772590499230908436');
-        console.log("Ocean role assigned");
+        console.log(`Team Ocean: ${member}`);
         break;
     }
   }
