@@ -27,7 +27,7 @@ console.log('BOT = [LOGGED IN]')
 client.on('ready', () => {
   console.log('BOT = [ACTIVE]')
   try {
-    client.user.presence('away')
+    client.user.presence('dnd')
     client.user.setActivity('with french fries 🍟')
     console.timeEnd('KOFTA startup')
   } catch (error) {
