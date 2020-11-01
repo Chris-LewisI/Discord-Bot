@@ -202,9 +202,9 @@ client.on('message', message => {
           .addFields(
             { name: 'Team Assignment:', value: 'React with 🔥 for team __**[PYRO]**__\nReact with 🌊 for team __**[OCEAN]**__', inline: true })
 
-        message.channel.send(embed);
-        message.react('🔥');
-        message.react('🌊');
+        message.channel.send(embed).react('🔥').react('🌊');
+        // message.react('🔥');
+        // message.react('🌊');
       })
       .catch((error) => {
         console.log('GIF could not load.')
