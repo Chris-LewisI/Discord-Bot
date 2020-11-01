@@ -10,7 +10,8 @@ var GphApiClient = require('giphy-js-sdk-core');
 const giphy = GphApiClient(giphyAPIToken);
 const client = new Discord.Client()
 
-// As of right now the code creates a new dms.csv file everytime the server is reset (NEEDS TO BE FIXED!!!)
+// As of right now the code creates a new dms.csv file that replaces the previous one everytime the server is reset.
+// (NEEDS TO BE FIXED!!!)
 const dbPath = "./dms.csv"
 const csvWriter = createCsvWriter({
   path: `${dbPath}`,
@@ -26,7 +27,7 @@ console.log('BOT = [LOGGED IN]')
 client.on('ready', () => {
   console.log('BOT = [ACTIVE]')
   try {
-    client.user.setStatus('away')
+    client.user.presence('away')
     client.user.setActivity('with french fries 🍟')
     console.timeEnd('KOFTA startup')
   } catch (error) {
@@ -39,9 +40,10 @@ client.on('guildMemberAdd', member => {
     member.roles.add(member.guild.roles.cache.find(role => role.name === "🚦BOTS🚦"));
   }
   else {
-    const welcomeChannel = member.guild.channels.cache.find(ch => ch.name.includes('general'));
-    const welcomeText = `Welcome to ${member.guild.name}, <@${member.user.id}>!`;
-    member.roles.add(member.guild.roles.cache.find(role => role.name === "🐢Little Boys🦑"));
+    // const welcomeChannel = member.guild.channels.cache.find(ch => ch.name.includes('general'));
+    // const welcomeText = `Welcome to ${member.guild.name}, <@${member.user.id}>!`;
+    // member.roles.add(member.guild.roles.cache.find(role => role.name === "🐢Little Boys🦑"));
+    guildM
 
     Promise.resolve(welcomeText).then(function (welcomeText) {
       welcomeChannel.send(welcomeText);
