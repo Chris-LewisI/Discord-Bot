@@ -200,7 +200,7 @@ client.on('message', message => {
           .setAuthor(client.user.username, 'attachment://kofta.png')
           .setTitle('🔫 __**WARZONE TOURNAMENT TIME**__ 🔫')
           .addFields(
-            { name: 'Team Assignment:', value: 'React with 🔥 for team __**[PYRO]**__\nReact with 🌊 for team __**[OCEAN]**__', inline: true })
+            { name: 'Team Assignment: (react to the message above)', value: 'React with 🔥 for team __**[PYRO]**__\nReact with 🌊 for team __**[OCEAN]**__', inline: true })
 
         message.channel.send(embed);
       })
