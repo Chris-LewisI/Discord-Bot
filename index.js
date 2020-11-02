@@ -117,24 +117,24 @@ client.on('message', message => {
   }
 
   if (command === 'mongo') {
-    // async () => {
+    async () => {
       message.reply('Sending to DB...');
       const doc = new GuildModel({ id: message.guild.id });
-      (doc.save());
+      await doc.save();
       message.reply('Document Saved.')
-    // }
+    }
   }
   if (command === 'mongo-data') {
-    // async () => {
-      const mongoResult = guilds.findById('5fa029dab40c2e01e00683ad');
-      console.log(mongoResult);
-      if (!mongoResult) {
+    async () => {
+      const req = await GuildModel.findOne({ id: message.guild.id });
+      console.log(req);
+      if (!req) {
         return message.reply('NO DATA!');
       }
       else {
-        message.reply(`Document Found: ${mongoResult.character} ${mongoResult.msg_id}`);
+        message.reply(`Document Found: ${req.character} ${req.msg_id}`);
       }
-    // }
+    }
   }
 
   if (command === 'warzone') {
