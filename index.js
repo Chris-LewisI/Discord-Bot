@@ -10,7 +10,7 @@ const giphy = GphApiClient(giphyAPIToken);
 const client = new Discord.Client({
   partials: ['MESSAGE', 'REACTION']
 });
-const GuildModel = require('./models/Guild');
+const teamPyro = require('./models/Pyro');
 const mongoose = require('mongoose');
 
 // As of right now the code creates a new dms.csv file that replaces the previous one everytime the server is reset.
@@ -26,7 +26,7 @@ const mongoose = require('mongoose');
 
 try {
   (async () => {
-    await mongoose.connect('mongodb://localhost:27017/mongodb', {
+    await mongoose.connect('mongodb://localhost:27017/tournament', {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
@@ -89,6 +89,42 @@ client.on('message', async (message) => {
   const args = message.content.slice(prefix.length).split(/ +/)
   const command = args.shift().toLowerCase()
 
+//database call
+  // if (command === 'mongo') {
+  //   message.reply('Sending to DB...');
+  //   console.log(message.guild.id);
+  //     const doc = new GuildModel({ msg_id: message.guild.id });
+  //     doc.save();
+  //     message.reply('Document Saved.')
+  // }
+  // if (command === 'mongo-data') {
+  //     const req = await GuildModel.findOne({ msg_id: message.guild.id });
+  //     if (!req) return message.reply('NO DATA');
+  //     else return message.reply(`RESPONSE: ${req.msg_id}`);
+  //   }
+
+  if (command === "pyro_add") {
+    if (!args.length) {
+      return message.reply('Must Input a score!');
+    }
+    else if (typeof(args) !== number) {
+      return message.reply('Must Input an integer!');
+    }
+    else {
+      const score = new teamPyro({ score: { $add: [args[0]] } });
+      await score.save();
+      const currentScore = await teamPyro.findOne({ score });
+      message.reply(`Score updated! ${currentScore}`)
+    }
+  }
+
+
+
+
+
+
+
+
   if (message.channel.type === 'dm') {
     if (message.author.bot) return
     else {
@@ -115,19 +151,6 @@ client.on('message', async (message) => {
       return
     }
   }
-
-  if (command === 'mongo') {
-    message.reply('Sending to DB...');
-    console.log(message.guild.id);
-      const doc = new GuildModel({ msg_id: message.guild.id });
-      doc.save();
-      message.reply('Document Saved.')
-  }
-  if (command === 'mongo-data') {
-      const req = await GuildModel.findOne({ msg_id: message.guild.id });
-      if (!req) return message.reply('NO DATA');
-      else return message.reply(`RESPONSE: ${req.msg_id}`);
-    }
 
   if (command === 'warzone') {
     giphy.search('gifs', { q: 'warzone' })

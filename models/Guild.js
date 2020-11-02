@@ -1,11 +1,11 @@
 const { Schema, model } = require('mongoose');
 
-const Guild = Schema({
-    msg_id: String,
-    character: {
-        default: '?',
-        type: String,
-    }
+const Pyro = Schema({
+    score: {
+        type: Number,
+        default: 0
+    },
+    user: String
 });
 
-module.exports = model("Guild", Guild);
+module.exports = model("Pyro", Pyro);
