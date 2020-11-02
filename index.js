@@ -117,15 +117,15 @@ client.on('message', message => {
   }
 
   if (command === 'mongo') {
-    async () => {
+    // async () => {
       message.reply('Sending to DB...');
       const doc = new GuildModel({ id: message.guild.id });
-      await(doc.save());
+      (doc.save());
       message.reply('Document Saved.')
-    }
+    // }
   }
   if (command === 'mongo-data') {
-    async () => {
+    // async () => {
       const req = GuildModel.findOne({ id: message.guild.id });
       if (!req) {
         return message.reply('NO DATA!');
@@ -133,7 +133,7 @@ client.on('message', message => {
       else {
         message.reply(`Document Found: ${req.id} ${req.prefix}`);
       }
-    }
+    // }
   }
 
   if (command === 'warzone') {
