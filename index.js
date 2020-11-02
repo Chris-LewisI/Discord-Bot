@@ -26,7 +26,7 @@ const mongoose = require('mongoose');
 
 try {
   (async () => {
-    await mongoose.connect('mongodb://localhost:27017/mongodb.guilds', {
+    await mongoose.connect('mongodb://localhost:27017/mongodb', {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
@@ -126,13 +126,13 @@ client.on('message', message => {
   }
   if (command === 'mongo-data') {
     // async () => {
-      const req = GuildModel.findOne({ character: '?' });
-      console.log(req);
-      if (!req) {
+      const mongoResult = GuildModel.findOne({ character: '?' });
+      console.log(mongoResult);
+      if (!mongoResult) {
         return message.reply('NO DATA!');
       }
       else {
-        message.reply(`Document Found: ${req.character} ${req.msg_id}`);
+        message.reply(`Document Found: ${mongoResult.character} ${mongoResult.msg_id}`);
       }
     // }
   }
