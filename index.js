@@ -83,7 +83,7 @@ client.on('guildMemberRemove', member => {
   }
 });
 
-client.on('message', message => {
+client.on('message', async (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return
 
   const args = message.content.slice(prefix.length).split(/ +/)
@@ -123,7 +123,7 @@ client.on('message', message => {
       doc.save();
       message.reply('Document Saved.')
   }
-  if (command === 'mongo-data') async =>{
+  if (command === 'mongo-data') {
       const req = await GuildModel.findOne({ msg_id: message.guild.id });
       if (!req) return message.reply('NO DATA');
       else return message.reply(`RESPONSE: ${req.msg_id}`);
