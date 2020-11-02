@@ -131,7 +131,7 @@ client.on('message', message => {
         return message.reply('NO DATA!');
       }
       else {
-        message.reply(`Document Found: ${req.id} ${req.prefix}`);
+        message.reply(`Document Found: ${req.character} ${req.msg_id}`);
       }
     // }
   }

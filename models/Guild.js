@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
 
 const Guild = Schema({
-    id: String,
-    prefix: {
+    msg_id: String,
+    character: {
         default: '?',
         type: String,
     }
