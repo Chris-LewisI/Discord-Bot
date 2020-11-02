@@ -110,14 +110,15 @@ client.on('message', async (message) => {
     else {
       try {
         var value = parseInt(args[0]);
+        console.info(`${typeof(value)} ${value}`);
         // const score = new teamPyro({ score: { $add: [args[0]] } });
-        const score = new teamPyro({ score: value })
+        const score = new teamPyro({ score: value });
         await score.save();
         const currentScore = await teamPyro.findOne({ score });
-        message.reply(`Score updated! ${currentScore}`)
+        message.reply(`Score updated! ${currentScore}`);
       }
       catch (error) {
-        console.log(error)
+        console.log(error);
         return message.reply('Must Input an integer!');
       }
     }
