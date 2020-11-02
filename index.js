@@ -25,11 +25,12 @@ const { connect } = require('mongoose');
 // });
 
 (async () => {
-  await connect('mongodb://localhost/mongodb-demo', {
-    useNewUrlParser: true,
-    useFindAndModify: false
+  await connect('mongodb://localhost:27017/mongodb', {
+    useNewUrlParser: true
   });
-})()
+})(mongoose.connection.on('connected', () => {
+  console.log('mongoose connection success');
+}));
 
 client.login(token) // allows bot to login into the server with a token.
 console.log('BOT = [LOGGED IN]')
