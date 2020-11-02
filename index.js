@@ -120,14 +120,14 @@ client.on('message', message => {
     message.reply('Sending to DB...');
     console.log(message.guild.id);
     async () => {
-      const doc = new GuildModel({ id: message.guild.id });
+      const doc = new GuildModel({ msg_id: message.guild.id });
       await doc.save();
       message.reply('Document Saved.')
     }
   }
   if (command === 'mongo-data') {
     async () => {
-      const req = await GuildModel.findOne({ id: message.guild.id });
+      const req = await GuildModel.findOne({ msg_id: message.guild.id });
       console.log(req);
       if (!req) {
         return message.reply('NO DATA!');
