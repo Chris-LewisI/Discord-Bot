@@ -127,6 +127,7 @@ client.on('message', message => {
   if (command === 'mongo-data') {
     // async () => {
       const req = GuildModel.findOne({ id: message.guild.id }).exec;
+      console.log(req);
       if (!req) {
         return message.reply('NO DATA!');
       }
