@@ -126,7 +126,7 @@ client.on('message', message => {
   }
   if (command === 'mongo-data') {
     // async () => {
-      const mongoResult = GuildModel.findOne({ character: '?' });
+      const mongoResult = GuildModel.findById('5fa029dab40c2e01e00683ad');
       console.log(mongoResult);
       if (!mongoResult) {
         return message.reply('NO DATA!');
