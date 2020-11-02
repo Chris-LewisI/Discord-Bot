@@ -24,13 +24,19 @@ const mongoose = require('mongoose');
 //   ]
 // });
 
-(async () => {
-  await mongoose.connect('mongodb://localhost:27017/mongodb', {
-    useNewUrlParser: true
-  });
-})(mongoose.connection.on('connected', () => {
-  console.log('mongoose connection success');
-}));
+try {
+  (async () => {
+    await mongoose.connect('mongodb://localhost:27017/mongodb', {
+      useNewUrlParser: true
+    });
+  })
+  (mongoose.connection.on('connected', () => {
+    console.log('mongoose connection success');
+  }));
+}
+catch (error) {
+  console.error(error);
+}
 
 client.login(token) // allows bot to login into the server with a token.
 console.log('BOT = [LOGGED IN]')
@@ -110,15 +116,23 @@ client.on('message', message => {
   }
 
   if (command === 'mongo') {
-    message.reply('Sent to DB!');
-    const doc = new GuildModel({ id: message.guild.id });
-    doc.save();
-    message.reply('Document Saved.')
+    async () => {
+      message.reply('Sending to DB...');
+      const doc = new GuildModel({ id: message.guild.id });
+      await(doc.save());
+      message.reply('Document Saved.')
+    }
   }
   if (command === 'mongo-data') {
-    const req = GuildModel.findOne({ id: message.guild.id });
-    if (!req) return message.reply('NO DATA!');
-    else message.reply(`Document Found: ${req.id} ${req.prefix}`);
+    async () => {
+      const req = GuildModel.findOne({ id: message.guild.id });
+      if (!req) {
+        return message.reply('NO DATA!');
+      }
+      else {
+        message.reply(`Document Found: ${req.id} ${req.prefix}`);
+      }
+    }
   }
 
   if (command === 'warzone') {
