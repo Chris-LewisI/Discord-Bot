@@ -107,7 +107,7 @@ client.on('message', async (message) => {
     if (!args.length) {
       return message.reply('Must Input a score!');
     }
-    else if (typeof(args) !== number) {
+    else if (typeof(args) !== Integer) {
       return message.reply('Must Input an integer!');
     }
     else {
