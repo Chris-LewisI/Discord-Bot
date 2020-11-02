@@ -119,11 +119,9 @@ client.on('message', message => {
   if (command === 'mongo') {
     message.reply('Sending to DB...');
     console.log(message.guild.id);
-    async () => {
       const doc = new GuildModel({ msg_id: message.guild.id });
-      await doc.save();
+      doc.save();
       message.reply('Document Saved.')
-    }
   }
   if (command === 'mongo-data') {
     async () => {
