@@ -3,7 +3,7 @@ require('dotenv').config();
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const Discord = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
-const { prefix, token, mongoTOKEN, giphyAPIToken, giphySDKToken } = require('./config');
+const { prefix, token, dbAddress, giphyAPIToken } = require('./config');
 const { version } = require('./package.json');
 var GphApiClient = require('giphy-js-sdk-core');
 const giphy = GphApiClient(giphyAPIToken);
@@ -26,7 +26,7 @@ const mongoose = require('mongoose');
 
 try {
   (async () => {
-    await mongoose.connect('mongodb://localhost:27017/tournament', {
+    await mongoose.connect(dbAddress, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
@@ -109,7 +109,7 @@ client.on('message', async (message) => {
     }
     else {
       try {
-        var value = parseInt(args[0]);
+        const value = parseInt(args[0]);
         console.info(`${typeof(value)} ${value}`);
         // const score = new teamPyro({ score: { $add: [args[0]] } });
         const score = new teamPyro({ score: value });
@@ -123,13 +123,6 @@ client.on('message', async (message) => {
       }
     }
   }
-
-
-
-
-
-
-
 
   if (message.channel.type === 'dm') {
     if (message.author.bot) return

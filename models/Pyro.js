@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const Pyro = Schema({
     score: {
-        type: number,
+        type: Number,
         default: 0
     },
     user: String
