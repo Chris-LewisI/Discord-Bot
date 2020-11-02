@@ -115,7 +115,7 @@ client.on('message', message => {
     message.reply('Document Saved.')
   }
   if (command === 'mongo-data') {
-    const req = GuildModel.find({ id: message.guild.id });
+    const req = GuildModel.findOne({ id: message.guild.id });
     if (!req) return message.reply('NO DATA!');
     else message.reply(`Document Found: ${req.id} ${req.prefix}`);
   }
