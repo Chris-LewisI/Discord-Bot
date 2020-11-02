@@ -10,7 +10,7 @@ const giphy = GphApiClient(giphyAPIToken);
 const client = new Discord.Client({
   partials: ['MESSAGE', 'REACTION']
 });
-const GuidModel = require('./models/Guild');
+const GuildModel = require('./models/Guild');
 const { connect } = require('mongoose');
 
 // As of right now the code creates a new dms.csv file that replaces the previous one everytime the server is reset.
@@ -110,7 +110,7 @@ client.on('message', message => {
 
   if (command === 'mongo') {
     message.reply('Sent to DB!');
-    const doc = new GuidModel({ id: message.guild.id });
+    const doc = new GuildModel({ id: message.guild.id });
     doc.save();
     message.reply('Document Saved.')
   }
