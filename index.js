@@ -3,24 +3,34 @@ require('dotenv').config();
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const Discord = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
-const { prefix, token, giphyAPIToken, giphySDKToken } = require('./config');
+const { prefix, token, mongoTOKEN, giphyAPIToken, giphySDKToken } = require('./config');
 const { version } = require('./package.json');
 var GphApiClient = require('giphy-js-sdk-core');
 const giphy = GphApiClient(giphyAPIToken);
 const client = new Discord.Client({
   partials: ['MESSAGE', 'REACTION']
 });
+const GuidModel = require('./models/Guild');
+const { connect } = require('mongoose');
 
 // As of right now the code creates a new dms.csv file that replaces the previous one everytime the server is reset.
 // (NEEDS TO BE FIXED!!!)
-const dbPath = "./dms.csv"
-const csvWriter = createCsvWriter({
-  path: `${dbPath}`,
-  header: [
-    {id: 'username', title: 'User'},
-    {id: 'message', title: 'Message'}
-  ]
-});
+// const dbPath = "./dms.csv"
+// const csvWriter = createCsvWriter({
+//   path: `${dbPath}`,
+//   header: [
+//     {id: 'username', title: 'User'},
+//     {id: 'message', title: 'Message'}
+//   ]
+// });
+
+(async () => {
+  await connect('mongodb://localhost/mongodb-demo', {
+    useNewUrlParser: true,
+    useFindAndModify: false
+  });
+  return client.login(mongoTOKEN);
+})()
 
 client.login(token) // allows bot to login into the server with a token.
 console.log('BOT = [LOGGED IN]')
@@ -92,13 +102,24 @@ client.on('message', message => {
         message: msg
       }];
 
-      csvWriter.writeRecords(data);
+      // csvWriter.writeRecords(data);
 
       message.reply(embed)
       return
     }
   }
 
+  if (command === 'mongo') {
+    message.reply('Sent to DB!');
+    const doc = new GuidModel({ id: message.guild.id });
+    await doc.save();
+    message.reply('Document Saved.')
+  }
+  if (command === 'mongo-data') {
+    const req = await GuildModel.find({ id: message.guild.id });
+    if (!req) return message.reply('NO DATA!');
+    else message.reply(`Document Found: ${req.id} ${req.prefix}`);
+  }
 
   if (command === 'warzone') {
     giphy.search('gifs', { q: 'warzone' })
