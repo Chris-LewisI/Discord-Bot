@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const Guild = Schmea({
+const Guild = Schema({
     id: String,
     prefix: {
         default: '?',
