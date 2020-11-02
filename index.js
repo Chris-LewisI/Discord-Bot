@@ -104,6 +104,7 @@ client.on('message', async (message) => {
   //   }
 
   if (command === "pyro_add") {
+    console.log(typeof(args[0]));
     if (!args.length) {
       return message.reply('Must Input a score!');
     }
