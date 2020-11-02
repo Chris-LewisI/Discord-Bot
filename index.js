@@ -123,18 +123,11 @@ client.on('message', message => {
       doc.save();
       message.reply('Document Saved.')
   }
-  if (command === 'mongo-data') {
-    async () => {
+  if (command === 'mongo-data') async =>{
       const req = await GuildModel.findOne({ msg_id: message.guild.id });
-      console.log(req);
-      if (!req) {
-        return message.reply('NO DATA!');
-      }
-      else {
-        message.reply(`Document Found: ${req.character} ${req.msg_id}`);
-      }
+      if (!req) return message.reply('NO DATA');
+      else return message.reply(`RESPONSE: ${req.msg_id}`);
     }
-  }
 
   if (command === 'warzone') {
     giphy.search('gifs', { q: 'warzone' })
