@@ -104,18 +104,21 @@ client.on('message', async (message) => {
   //   }
 
   if (command === "pyro_add") {
-    console.log(typeof(args[1]));
     if (!args.length) {
       return message.reply('Must Input a score!');
     }
-    else if (typeof(args) !== Integer) {
-      return message.reply('Must Input an integer!');
-    }
     else {
-      const score = new teamPyro({ score: { $add: [args[0]] } });
-      await score.save();
-      const currentScore = await teamPyro.findOne({ score });
-      message.reply(`Score updated! ${currentScore}`)
+      try {
+        args[0] = parseInt(args[0]);
+        const score = new teamPyro({ score: { $add: [args[0]] } });
+        await score.save();
+        const currentScore = await teamPyro.findOne({ score });
+        message.reply(`Score updated! ${currentScore}`)
+      }
+      catch (error) {
+        console.log(error)
+        return message.reply('Must Input an integer!');
+      }
     }
   }
 
