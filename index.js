@@ -11,7 +11,7 @@ const client = new Discord.Client({
   partials: ['MESSAGE', 'REACTION']
 });
 const GuildModel = require('./models/Guild');
-const { connect } = require('mongoose');
+const mongoose = require('mongoose');
 
 // As of right now the code creates a new dms.csv file that replaces the previous one everytime the server is reset.
 // (NEEDS TO BE FIXED!!!)
@@ -25,7 +25,7 @@ const { connect } = require('mongoose');
 // });
 
 (async () => {
-  await connect('mongodb://localhost:27017/mongodb', {
+  await mongoose.connect('mongodb://localhost:27017/mongodb', {
     useNewUrlParser: true
   });
 })(mongoose.connection.on('connected', () => {
