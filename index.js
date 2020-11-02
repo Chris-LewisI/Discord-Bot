@@ -29,7 +29,6 @@ const { connect } = require('mongoose');
     useNewUrlParser: true,
     useFindAndModify: false
   });
-  return client.login(mongoTOKEN);
 })()
 
 client.login(token) // allows bot to login into the server with a token.
@@ -112,7 +111,7 @@ client.on('message', message => {
   if (command === 'mongo') {
     message.reply('Sent to DB!');
     const doc = new GuidModel({ id: message.guild.id });
-    await doc.save();
+    doc.save();
     message.reply('Document Saved.')
   }
   if (command === 'mongo-data') {
