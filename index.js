@@ -120,6 +120,7 @@ client.on('message', async (message) => {
         userMessage: '123', 
         user: message.author.username 
       });
+      console.log(directMessage);
 
       console.log('Saving feedback...');
       try {
