@@ -87,7 +87,7 @@ client.on('message', async (message) => {
     }
     else {
       try {
-        const value = parseInt(args[0]);
+        const value = Number(args[0]);
         console.info(`${typeof(value)} ${value}`);
         // const score = new teamPyro({ score: { $add: [args[0]] } });
         const score = new teamPyro({ score: value });
