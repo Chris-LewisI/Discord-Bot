@@ -113,7 +113,11 @@ client.on('message', async (message) => {
   if (command === 'pyro_score') {
     var totalScore = teamPyro.aggregate (
       [
-        { $sum:  "$score" }
+        {
+           $points: {
+            total: { $sum:  "$score" }
+           }
+        }
       ]
   );
     message.reply(`Team Pyro Score: ${totalScore}`);
