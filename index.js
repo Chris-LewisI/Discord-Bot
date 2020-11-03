@@ -120,7 +120,7 @@ client.on('message', async (message) => {
         }
       ]
   );
-    message.reply(`Team Pyro Score: ${totalScore}`);
+    message.reply(`Team Pyro Score: ${totalScore.total}`);
     console.log(totalScore);
   }
 
