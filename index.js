@@ -92,6 +92,7 @@ client.on('message', async (message) => {
         // const score = new teamPyro({ score: { $add: [args[0]] } });
         const scoreUpdate = new teamPyro({ score: value });
         await scoreUpdate.save();
+        console.log('Saved');
         // const currentScore = await teamPyro.findOne({ score });
         // message.reply(`Score updated! ${currentScore}`);
       }
