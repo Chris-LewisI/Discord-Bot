@@ -1,6 +1,5 @@
 console.time('KOFTA startup')
 require('dotenv').config();
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const Discord = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
 const { prefix, token, dbAddress, giphyAPIToken } = require('./config');
@@ -10,20 +9,12 @@ const giphy = GphApiClient(giphyAPIToken);
 const client = new Discord.Client({
   partials: ['MESSAGE', 'REACTION']
 });
+
+//import mongoose and schemas
 const teamPyro = require('./models/Pyro');
+const feedbackMessage = require('./models/DM');
 const mongoose = require('mongoose');
-
-// As of right now the code creates a new dms.csv file that replaces the previous one everytime the server is reset.
-// (NEEDS TO BE FIXED!!!)
-// const dbPath = "./dms.csv"
-// const csvWriter = createCsvWriter({
-//   path: `${dbPath}`,
-//   header: [
-//     {id: 'username', title: 'User'},
-//     {id: 'message', title: 'Message'}
-//   ]
-// });
-
+//connect to MongoDB
 try {
   (async () => {
     await mongoose.connect(dbAddress, {
@@ -89,20 +80,7 @@ client.on('message', async (message) => {
   const args = message.content.slice(prefix.length).split(/ +/)
   const command = args.shift().toLowerCase()
 
-//database call
-  // if (command === 'mongo') {
-  //   message.reply('Sending to DB...');
-  //   console.log(message.guild.id);
-  //     const doc = new GuildModel({ msg_id: message.guild.id });
-  //     doc.save();
-  //     message.reply('Document Saved.')
-  // }
-  // if (command === 'mongo-data') {
-  //     const req = await GuildModel.findOne({ msg_id: message.guild.id });
-  //     if (!req) return message.reply('NO DATA');
-  //     else return message.reply(`RESPONSE: ${req.msg_id}`);
-  //   }
-
+//warzone score update
   if (command === "pyro_add") {
     if (!args.length) {
       return message.reply('Must Input a score!');
@@ -138,13 +116,14 @@ client.on('message', async (message) => {
       const msg = message.content.slice(prefix.length)
       console.log(`[DM] ${message.author.username}: ${msg}`)
 
-      //saves message from user to CSV file on server or locally (wherever the bot is running)
-      const data = [{
-        username: message.author.username,
-        message: msg
-      }];
-
-      // csvWriter.writeRecords(data);
+      const directMessage = new feedbackMessage({ userMessage: msg, user: message.author.username });
+      console.log('Saving feedback...');
+      try {
+        await directMessage.save();
+        console.log('Feed back saved.');
+      } catch (error) {
+        console.error(error);
+      }
 
       message.reply(embed)
       return
