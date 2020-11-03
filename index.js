@@ -91,22 +91,20 @@ client.on('message', async (message) => {
         console.info(`${value}`);
         
         const currentScore = await teamPyro.findOne({ user: message.author.username });
-        
+
         if (currentScore) {
           currentScore.score = currentScore.score + value
+          await currentScore.save();
         }
         else {
-          this.currentScore = new teamPyro({ score: value, user: message.author.username });
+          const scoreUpdate = new teamPyro({ score: value, user: message.author.username });
+          await scoreUpdate.save();
         }
-        // const scoreUpdate = new teamPyro({ score: value, user: message.author.username });
-        // await scoreUpdate.save();
-        await currentScore.save();
         console.log('Saved Score');
-        message.reply(`Score updated! ${currentScore.score}`);
+        message.reply(`[UPDATED] ${message.author.username}: ${currentScore.score}`);
       }
       catch (error) {
         console.log(error);
-        return message.reply('Must Input an integer!');
       }
     }
   }
