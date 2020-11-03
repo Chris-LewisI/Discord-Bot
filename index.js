@@ -95,14 +95,15 @@ client.on('message', async (message) => {
         if (currentScore) {
           currentScore.score = currentScore.score + value
           await currentScore.save();
+          console.log('Saved Score');
+          message.reply(`[UPDATED] ${message.author.username}: ${currentScore.score}`);
         }
         else {
           const scoreUpdate = new teamPyro({ score: value, user: message.author.username });
           await scoreUpdate.save();
-          currentScore = await teamPyro.findOne({ user: message.author.username });
+          console.log('Saved Score');
+          message.reply(`[UPDATED] ${message.author.username}: ${scoreUpdate.score}`);
         }
-        console.log('Saved Score');
-        message.reply(`[UPDATED] ${message.author.username}: ${currentScore.score}`);
       }
       catch (error) {
         console.log(error);
