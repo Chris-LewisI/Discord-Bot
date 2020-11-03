@@ -116,11 +116,15 @@ client.on('message', async (message) => {
       const msg = message.content.slice(prefix.length)
       console.log(`[DM] ${message.author.username}: ${msg}`)
 
-      const directMessage = new feedbackMessage({ userMessage: msg, user: message.author.username });
+      const directMessage = new feedbackMessage({ 
+        userMessage: message.content, 
+        user: message.author.username 
+      });
+
       console.log('Saving feedback...');
       try {
         await directMessage.save();
-        console.log('Feed back saved.');
+        console.log('Feedback saved.');
       } catch (error) {
         console.error(error);
       }
