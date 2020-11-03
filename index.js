@@ -117,7 +117,7 @@ client.on('message', async (message) => {
       console.log(`[DM] ${message.author.username}: ${msg}`)
 
       const directMessage = new feedbackMessage({ 
-        userMessage: message.content, 
+        userMessage: '123', 
         user: message.author.username 
       });
 
