@@ -114,10 +114,7 @@ client.on('message', async (message) => {
     var totalScore = teamPyro.aggregate (
       [
         { $sum:  "$score" }
-      ],
-      {
-        allowDiskUse: true
-      }
+      ]
   );
     message.reply(`Team Pyro Score: ${totalScore}`);
     console.log(totalScore);
