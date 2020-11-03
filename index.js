@@ -111,7 +111,7 @@ client.on('message', async (message) => {
     }
   }
   if (command === 'pyro_score') {
-    var totalScore = new teamPyro.aggregate (
+    var totalScore = teamPyro.aggregate (
       [{
         $group: {
           _id: '',
