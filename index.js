@@ -89,15 +89,14 @@ client.on('message', async (message) => {
       try {
         const value = Number(args[0]);
         console.info(`${value}`);
-        const currentScore = 0;
-        try {
-          currentScore = await teamPyro.findOne({ user: message.author.username });
-        } catch (error) {
-          console.error(error.code);
-          currentScore = new teamPyro({ score: value, user: message.author.username });
-          console.log('made new json');
+        
+        const currentScore = await teamPyro.findOne({ user: message.author.username });
+        if (currentScore) {
+          currentScore.score = currentScore.score + value
         }
-        currentScore.score = currentScore.score + value
+        else {
+          currentScore = new teamPyro({ score: value, user: message.author.username });
+        }
         // const scoreUpdate = new teamPyro({ score: value, user: message.author.username });
         // await scoreUpdate.save();
         await currentScore.save();
