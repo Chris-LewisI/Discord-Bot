@@ -111,8 +111,8 @@ client.on('message', async (message) => {
     }
   }
   if (command === 'pyro_score') {
-    const totalScore = teamPyro.aggregate({ $sum: { $score } });
-    message.reply(`Team Pyro Score: ${totalScore}`);
+    const totalScore = teamPyro.aggregate({ $sum: { score } });
+    message.reply(`Team Pyro Score: ${totalScore.sum}`);
   }
 
   if (message.channel.type === 'dm') {
