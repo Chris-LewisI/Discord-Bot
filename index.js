@@ -89,7 +89,7 @@ client.on('message', async (message) => {
       try {
         const value = Number(args[0]);
         console.info(`${value}`);
-        const currentScore;
+        const currentScore = 0;
         try {
           currentScore = await teamPyro.findOne({ user: message.author.username });
         } catch (error) {
