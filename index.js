@@ -113,14 +113,14 @@ client.on('message', async (message) => {
   if (command === 'pyro_score') {
     var totalScore = teamPyro.aggregate (
       [
-        { total: { $sum:  "$score" } }
+        { $sum:  "$score" }
       ],
       {
         allowDiskUse: true
       }
   );
     message.reply(`Team Pyro Score: ${totalScore}`);
-    console.log(totalScore.total);
+    console.log(totalScore);
   }
 
   if (message.channel.type === 'dm') {
