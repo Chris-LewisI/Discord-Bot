@@ -111,9 +111,16 @@ client.on('message', async (message) => {
     }
   }
   if (command === 'pyro_score') {
-    const totalScore = teamPyro.aggregate([{ total: { $sum:  "$score" } }]);
+    var totalScore = teamPyro.aggregate (
+      [
+        { total: { $sum:  "$score" } }
+      ],
+      {
+        allowDiskUse: true
+      }
+  );
     message.reply(`Team Pyro Score: ${totalScore}`);
-    console.log(totalScore);
+    console.log(totalScore.total);
   }
 
   if (message.channel.type === 'dm') {
