@@ -23,7 +23,7 @@ try {
     });
   })
   (mongoose.connection.on('connected', () => {
-    console.log('\x1b[5m[36m[BOT]\x1b[0m = Connected to MongoDB');
+    console.log('\x1b[5m[BOT]\x1b[0m = Connected to MongoDB');
   }));
 }
 catch (error) {
