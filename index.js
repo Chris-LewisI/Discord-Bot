@@ -1,4 +1,4 @@
-console.time('\x1b[36m[BOT]\x1b[0m startup')
+console.time('\x1b[36m[BOT]\x1b[0m = startup')
 require('dotenv').config();
 const Discord = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
@@ -23,7 +23,7 @@ try {
     });
   })
   (mongoose.connection.on('connected', () => {
-    console.log('\x1b[36m[BOT]\x1b[0m = Connected to MongoDB');
+    console.log('\x1b[5m[36m[BOT]\x1b[0m = Connected to MongoDB');
   }));
 }
 catch (error) {
@@ -37,7 +37,7 @@ client.on('ready', () => {
   try {
     client.user.setStatus('dnd')
     client.user.setActivity('with french fries 🍟')
-    console.timeEnd('\x1b[36m[BOT]\x1b[0m startup')
+    console.timeEnd('\x1b[36m[BOT]\x1b[0m = startup')
   } catch (error) {
     console.log(error)
   }
