@@ -1,4 +1,4 @@
-console.time('KOFTA startup')
+console.time('\x1b[36m[BOT]\x1b[0m startup')
 require('dotenv').config();
 const Discord = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
@@ -23,7 +23,7 @@ try {
     });
   })
   (mongoose.connection.on('connected', () => {
-    console.log('mongoose connection success');
+    console.log('\x1b[36m[BOT]\x1b[0m = Connected to MongoDB');
   }));
 }
 catch (error) {
@@ -31,14 +31,13 @@ catch (error) {
 }
 
 client.login(token) // allows bot to login into the server with a token.
-console.log('BOT = [LOGGED IN]')
+console.log('\x1b[36m[BOT]\x1b[0m = Logged in')
 
 client.on('ready', () => {
-  console.log('BOT = [ACTIVE]')
   try {
     client.user.setStatus('dnd')
     client.user.setActivity('with french fries 🍟')
-    console.timeEnd('KOFTA startup')
+    console.timeEnd('\x1b[36m[BOT]\x1b[0m startup')
   } catch (error) {
     console.log(error)
   }
