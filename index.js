@@ -31,7 +31,7 @@ catch (error) {
 }
 
 client.login(token) // allows bot to login into the server with a token.
-console.log('\x1b[32m[BOT]\x1b[0m = Logged in')
+console.log('\x1b[5m\x1b[32m[BOT]\x1b[0m\x1b[0m = Logged in')
 
 client.on('ready', () => {
   try {
