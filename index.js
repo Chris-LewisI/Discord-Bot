@@ -37,7 +37,7 @@ client.on('ready', () => {
   try {
     client.user.setStatus('dnd')
     client.user.setActivity('with french fries 🍟')
-    console.timeEnd('\x1b[36m[BOT]\x1b[0m = startup')
+    console.timeEnd('\x1b[32m[BOT]\x1b[0m = startup')
   } catch (error) {
     console.log(error)
   }
