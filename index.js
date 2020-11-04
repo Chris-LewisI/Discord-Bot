@@ -1,4 +1,4 @@
-console.time('\x1b[36m[BOT]\x1b[0m = startup')
+console.time('\x1b[32m[BOT]\x1b[0m = startup')
 require('dotenv').config();
 const Discord = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
@@ -23,7 +23,7 @@ try {
     });
   })
   (mongoose.connection.on('connected', () => {
-    console.log('\x1b[5m[BOT]\x1b[0m = Connected to MongoDB');
+    console.log('\x1b[32m[BOT]\x1b[0m = Connected to MongoDB');
   }));
 }
 catch (error) {
@@ -31,7 +31,7 @@ catch (error) {
 }
 
 client.login(token) // allows bot to login into the server with a token.
-console.log('\x1b[36m[BOT]\x1b[0m = Logged in')
+console.log('\x1b[32m[BOT]\x1b[0m = Logged in')
 
 client.on('ready', () => {
   try {
