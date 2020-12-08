@@ -9,29 +9,36 @@ const giphy = GphApiClient(giphyAPIToken);
 const client = new Discord.Client({
   partials: ['MESSAGE', 'REACTION']
 });
+const { Player } = require("discord-player");
+const player = new Player(client);
+client.player = player;
+client.player.on('trackStart', (message, track) => message.channel.send(`Now playing ${track.title}...`))
+
 
 //import mongoose and schemas
 const teamPyro = require('./models/Pyro');
 const feedbackMessage = require('./models/DM');
 const mongoose = require('mongoose');
+
 //connect to MongoDB
-try {
-  (async () => {
-    await mongoose.connect(dbAddress, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-  })
-  (mongoose.connection.on('connected', () => {
-    console.log('\x1b[32m[BOT]\x1b[0m = Connected to MongoDB');
-  }));
-}
-catch (error) {
-  console.error(error);
-}
+// try {
+//   (async () => {
+//     await mongoose.connect(dbAddress, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//       useCreateIndex: true
+//     });
+//   })
+//   (mongoose.connection.on('connected', () => {
+//     console.log('\x1b[32m[BOT]\x1b[0m = Connected to MongoDB');
+//   }));
+// }
+// catch (error) {
+//   console.error(error);
+// }
 
 client.login(token) // allows bot to login into the server with a token.
-console.log('\x1b[5m\x1b[32m[BOT]\x1b[0m\x1b[0m = Logged in')
+console.log('\x1b[32m[BOT]\x1b[0m = Logged in')
 
 client.on('ready', () => {
   try {
@@ -79,6 +86,10 @@ client.on('message', async (message) => {
   const args = message.content.slice(prefix.length).split(/ +/)
   const command = args.shift().toLowerCase()
 
+  if(command === "play"){
+    client.player.play(message, args[0], message.member.user);
+  }
+  
 //warzone score update
   if (command === "pyro_add") {
     if (!args.length) {
