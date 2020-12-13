@@ -2,7 +2,12 @@ console.time('\x1b[32m[BOT]\x1b[0m = startup')
 require('dotenv').config();
 const Discord = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
-const { prefix, token, dbAddress, giphyAPIToken } = require('./config');
+// const { prefix, token, dbAddress, giphyAPIToken } = require(./config);
+
+const prefix = process.env.prefix;
+const token = process.env.token;
+const giphyAPIToken = process.env.giphyAPIToken;
+
 const { version } = require('./package.json');
 var GphApiClient = require('giphy-js-sdk-core');
 const giphy = GphApiClient(giphyAPIToken);
@@ -13,7 +18,7 @@ const { Player } = require("discord-player");
 const player = new Player(client);
 client.player = player;
 client.player.on('trackStart', (message, track) => message.channel.send(`Now playing ${track.title}...`))
-
+// console.log(process.env.token);
 
 //import mongoose and schemas
 const teamPyro = require('./models/Pyro');
