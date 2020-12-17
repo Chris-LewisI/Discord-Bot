@@ -1,46 +1,30 @@
 console.time('\x1b[32m[BOT]\x1b[0m = startup')
 require('dotenv').config();
 const Discord = require('discord.js');
+const { Client } = require('pg');
 const { fallout, server, kofta, thumbUp } = require('./assets');
-// const { prefix, token, dbAddress, giphyAPIToken } = require(./config);
-
 const prefix = process.env.prefix;
 const token = process.env.token;
 const giphyAPIToken = process.env.giphyAPIToken;
-
 const { version } = require('./package.json');
 var GphApiClient = require('giphy-js-sdk-core');
 const giphy = GphApiClient(giphyAPIToken);
+
 const client = new Discord.Client({
   partials: ['MESSAGE', 'REACTION']
 });
-const { Player } = require("discord-player");
-const player = new Player(client);
-client.player = player;
-client.player.on('trackStart', (message, track) => message.channel.send(`Now playing ${track.title}...`))
-// console.log(process.env.token);
 
-//import mongoose and schemas
-const teamPyro = require('./models/Pyro');
-const feedbackMessage = require('./models/DM');
-const mongoose = require('mongoose');
+const postgresDB = new Client({
+  user: "feupwhgapkdthy",
+  password: "14b1c027c6844926d099834bdff9db273aed5c58d138b253d2f6e28991d64461",
+  host: "ec2-52-203-165-126.compute-1.amazonaws.com",
+  port: 5432,
+  database: "d6mkhjljhffucd"
+});
 
-//connect to MongoDB
-// try {
-//   (async () => {
-//     await mongoose.connect(dbAddress, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//       useCreateIndex: true
-//     });
-//   })
-//   (mongoose.connection.on('connected', () => {
-//     console.log('\x1b[32m[BOT]\x1b[0m = Connected to MongoDB');
-//   }));
-// }
-// catch (error) {
-//   console.error(error);
-// }
+postgresDB.connect()
+  .then(() => console.log("Successful Database Connection"))
+  .catch(e => console.log(e))
 
 client.login(token) // allows bot to login into the server with a token.
 console.log('\x1b[32m[BOT]\x1b[0m = Logged in')
@@ -90,59 +74,6 @@ client.on('message', async (message) => {
 
   const args = message.content.slice(prefix.length).split(/ +/)
   const command = args.shift().toLowerCase()
-
-  if(command === "play"){
-    client.player.play(message, args[0], message.member.user);
-  }
-  
-//warzone score update
-  if (command === "pyro_add") {
-    if (!args.length) {
-      return message.reply('Must Input a score!');
-    }
-    else {
-      try {
-        const value = Number(args[0]);
-        console.info(`${value}`);
-        
-        const currentScore = await teamPyro.findOne({ user: message.author.username });
-
-        if (currentScore) {
-          currentScore.score = currentScore.score + value
-          await currentScore.save();
-          console.log('Saved Score');
-          message.reply(`[UPDATED] ${message.author.username}: ${currentScore.score}`);
-        }
-        else {
-          const scoreUpdate = new teamPyro({ score: value, user: message.author.username });
-          await scoreUpdate.save();
-          console.log('Saved Score');
-          message.reply(`[UPDATED] ${message.author.username}: ${scoreUpdate.score}`);
-        }
-      }
-      catch (error) {
-        console.log(error);
-      }
-    }
-  }
-  if (command === 'pyro_score') {
-    var totalScore = teamPyro.aggregate (
-      [{
-        $group: {
-          _id: '',
-          "score": { $sum: '$score' }
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          "TotalAmount": '$score'
-        }
-      }]
-  );
-    message.reply(`Team Pyro Score: ${totalScore}`);
-    console.log(totalScore);
-  }
 
   if (message.channel.type === 'dm') {
     if (message.author.bot) return
