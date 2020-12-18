@@ -15,15 +15,16 @@ const client = new Discord.Client({
 });
 
 const postgresDB = new Client({
-  user: "feupwhgapkdthy",
-  password: "14b1c027c6844926d099834bdff9db273aed5c58d138b253d2f6e28991d64461",
-  host: "ec2-52-203-165-126.compute-1.amazonaws.com",
-  port: 5432,
-  database: "d6mkhjljhffucd"
+  user: process.env.postgres_user,
+  password: process.env.postgres_password,
+  host: process.env.postgres_host,
+  port: process.env.postgres_port,
+  database: process.env.postgres_db,
+  ssl: { rejectUnauthorized: false }
 });
 
 postgresDB.connect()
-  .then(() => console.log("Successful Database Connection"))
+  .then(() => console.log("\x1b[32m[BOT]\x1b[0m = Successful Database Connection"))
   .catch(e => console.log(e))
 
 client.login(token) // allows bot to login into the server with a token.
@@ -89,18 +90,11 @@ client.on('message', async (message) => {
       const msg = message.content.slice(prefix.length)
       console.log(`[DM] ${message.author.username}: ${msg}`)
 
-      const directMessage = new feedbackMessage({ 
-        userMessage: msg, 
-        user: message.author.username 
-      });
-
       console.log('Saving feedback...');
-      try {
-        await directMessage.save();
-        console.log('Feedback saved.');
-      } catch (error) {
-        console.error(error);
-      }
+      postgresDB
+        .query(`INSERT INTO dms (username, message) VALUES ('${message.author.username}', '${msg}');`)
+        .then((() => console.log('Feedback saved.')))
+        .catch(e => console.error((e.stack)))
 
       message.reply(embed)
       return
