@@ -61,7 +61,7 @@ client.on('guildMemberRemove', member => {
     console.log(`BOT: ${member.user.tag} has been removed.`);
   }
   else {
-    const leaveChannel = member.guild.channels.cache.find(ch => ch.name.includes('general'));
+    const leaveChannel = member.guild.channels.cache.find(ch => ch.name.includes('😁𝔤𝔢𝔫𝔢𝔯𝔞𝔩-𝔠𝔥𝔞𝔱'));
     const farewellText = `We're sorry to see you leaving ${member.user.tag}!`
 
     Promise.resolve(farewellText).then(function (farewellText) {
