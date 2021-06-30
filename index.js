@@ -45,11 +45,9 @@ client.on('guildMemberAdd', member => {
     member.roles.add(member.guild.roles.cache.find(role => role.name === "🚦BOTS🚦"));
   }
   else {
-    // const welcomeChannel = member.guild.channels.cache.find(ch => ch.name.includes('😁general-chat'));
-    //general chat channel id: 401390003919519745
-    const welcomeChannel = member.guild.channels.cache.get('759984584044970026');
+    const welcomeChannel = member.guild.channels.cache.get('401390003919519745');
     const welcomeText = `Welcome to ${member.guild.name}, <@${member.user.id}>!`;
-    member.roles.add(member.guild.roles.cache.find(role => role.name === "🐢Little Boys🦑"));
+    member.roles.add(member.guild.roles.cache.get('421685459136020480'));
 
     Promise.resolve(welcomeText).then(function (welcomeText) {
       welcomeChannel.send(welcomeText);
