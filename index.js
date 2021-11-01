@@ -72,6 +72,11 @@ client.on('guildMemberRemove', member => {
 });
 
 client.on('message', async (message) => {
+  if (message.content.startsWith("shit")) {
+    message.delete()
+  }
+
+client.on('message', async (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return
 
   const args = message.content.slice(prefix.length).split(/ +/)
