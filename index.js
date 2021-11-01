@@ -39,6 +39,7 @@ client.on('ready', () => {
     console.log(error)
   }
 })
+
 //welcome to server message and role assignment
 client.on('guildMemberAdd', member => {
   if(member.user.bot == true) {
