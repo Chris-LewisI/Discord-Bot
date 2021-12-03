@@ -39,6 +39,7 @@ client.on('ready', () => {
     console.log(error)
   }
 })
+
 //welcome to server message and role assignment
 client.on('guildMemberAdd', member => {
   if(member.user.bot == true) {
@@ -69,6 +70,11 @@ client.on('guildMemberRemove', member => {
     });
   }
 });
+
+client.on('message', async (message) => {
+  if (message.content.startsWith("shit")) {
+    message.delete()
+  }
 
 client.on('message', async (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return
