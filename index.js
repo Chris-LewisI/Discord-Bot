@@ -75,6 +75,8 @@ client.on('message', async (message) => {
   if (message.content.startsWith("shit")) {
     message.delete()
   }
+})
+
 
 client.on('message', async (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return
