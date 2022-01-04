@@ -70,57 +70,6 @@ client.on('message', async (message) => {
   const args = message.content.slice(prefix.length).split(/ +/)
   const command = args.shift().toLowerCase()
 
-  if (message.channel.type === 'dm') {
-    if (message.author.bot) return
-    else {
-      const embed = new Discord.MessageEmbed()
-        .attachFiles([thumbUp, kofta])
-        .setColor('#ffee00')
-        .setThumbnail('attachment://thumbUp.png')
-        .setAuthor(client.user.username, 'attachment://kofta.png')
-        .setTitle('Thanks For Your Feedback!')
-        .addFields({ name: 'Developer:', value: 'Thank you for using KOFTA, we will go through your feedback and improve the bot where necessary!', inline: true })
-
-      const msg = message.content.slice(prefix.length)
-      console.log(`[DM] ${message.author.username}: ${msg}`)
-
-      console.log('Saving feedback...');
-      postgresDB
-        .query(`INSERT INTO dms (username, message) VALUES ('${message.author.username}', '${msg}');`)
-        .then((() => console.log('Feedback saved.')))
-        .catch(e => console.error((e.stack)))
-
-      message.reply(embed)
-      return
-    }
-  }
-
-  if (command === 'warzone') {
-    giphy.search('gifs', { q: 'warzone' })
-      .then((response) => {
-        var totalResponses = response.data.length
-        var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses
-        var responseFinal = response.data[responseIndex]
-        var url = responseFinal.images.fixed_height.url
-
-        const embed = new Discord.MessageEmbed()
-          .attachFiles([kofta])
-          .setColor('#ffee00')
-          .setThumbnail(url, 400, 400)
-          .setAuthor(client.user.username, 'attachment://kofta.png')
-          .setTitle('PATCH NOTES')
-          .addFields(
-            { name: 'Server:', value: 'https://www.infinityward.com/news', inline: true })
-
-        message.channel.send(embed)
-      })
-      .catch((error) => {
-        console.log('GIF could not load.')
-        console.log(error)
-        message.channel.send('https://www.infinityward.com/news')
-      })
-  }
-
   if (command === 'info') {
     const days = Math.floor(client.uptime / 86400000)
     const hours = Math.floor(client.uptime / 3600000) % 24
@@ -148,64 +97,10 @@ client.on('message', async (message) => {
       .setAuthor(client.user.username, 'attachment://kofta.png')
       .setTitle('Help is here!')
       .addFields(
-        { name: 'KOFTA Version:', value: `*${version}*\n**C O M M A N D S**\n- "//warzone" : Gives you access to Call Of Duty: Warzone patch notes 🍖\n- "//happy_hour" : Shows when COD Happy Hour begins for KOLOTS\n- "//info" : Displays KOFTA's uptime and ping!\n**U P D A T E S**\n- welcome and farewell message\n- role assignment upon joining server\n\n*Questions and recommendations can be DM'ed to the bot. Use the prefix "//" before your message!*`, inline: true })
+        { name: 'KOFTA Version:', value: `*${version}*\n**C O M M A N D S**\n- "//info" : Displays KOFTA's uptime and ping!\n**U P D A T E S**\n`, inline: true })
 
     message.channel.send(embed)
     return
-  }
-
-  if (command === 'happy_hour') {
-    giphy.search('gifs', { q: 'Modern Warfare' })
-      .then((response) => {
-        var totalResponses = response.data.length
-        var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses
-        var responseFinal = response.data[responseIndex]
-        var url = responseFinal.images.fixed_height.url
-
-        const embed = new Discord.MessageEmbed()
-          .attachFiles([kofta])
-          .setColor('#ffee00')
-          .setThumbnail(url)
-          .setAuthor(client.user.username, 'attachment://kofta.png')
-          .setTitle('🔫 __**COD : Modern Warfare**__ 🔫')
-          .addFields(
-            { name: 'Hour of 2XP:', value: 'Happy Hour starts at **9PM** for the __**[KOLOTS]**__', inline: true })
-
-        message.channel.send(embed)
-      })
-      .catch((error) => {
-        console.log('GIF could not load.')
-        console.log(error)
-        message.channel.send('🔫 __*COD : Modern Warfare*__ Happy Hour starts at **9PM** for the __**[KOLOTS]**__ 🔫')
-      })
-  }
-
-  if (command === 'tournament') {
-    giphy.search('gifs', { q: 'Excited' })
-      .then((response) => {
-        var totalResponses = response.data.length
-        var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses
-        var responseFinal = response.data[responseIndex]
-        var url = responseFinal.images.fixed_height.url
-
-        const embed = new Discord.MessageEmbed()
-          .attachFiles([kofta])
-          .setColor('#ffee00')
-          .setThumbnail(url)
-          .setAuthor(client.user.username, 'attachment://kofta.png')
-          .setTitle('🔫 __**WARZONE TOURNAMENT TIME**__ 🔫')
-          .addFields(
-            { name: 'Team Assignment: (react to the message above)', value: 'React with 🔥 for team __**[PYRO]**__\nReact with 🌊 for team __**[OCEAN]**__', inline: true })
-
-        message.channel.send(embed);
-      })
-      .catch((error) => {
-        console.log('GIF could not load.')
-        console.log(error)
-        message.channel.send('WARZONE TOURNAMENT!')
-      })
-      message.react('🔥');
-      message.react('🌊');
   }
 })
 
