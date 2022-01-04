@@ -1,12 +1,12 @@
 {
   "name": "discord-bot",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "description": "A bot used in Discord :)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "wutang",
+  "author": "Chris Ibraheem",
   "license": "ISC",
   "dependencies": {
     "@discordjs/opus": "^0.3.3",
