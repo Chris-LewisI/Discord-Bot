@@ -1,7 +1,6 @@
 console.time('\x1b[32m[BOT]\x1b[0m = startup')
 require('dotenv').config();
 const Discord = require('discord.js');
-const { Client } = require('pg');
 const { fallout, server, kofta, thumbUp } = require('./assets');
 const prefix = process.env.prefix;
 const token = process.env.token;
@@ -13,19 +12,6 @@ const giphy = GphApiClient(giphyAPIToken);
 const client = new Discord.Client({
   partials: ['MESSAGE', 'REACTION']
 });
-
-const postgresDB = new Client({
-  user: process.env.postgres_user,
-  password: process.env.postgres_password,
-  host: process.env.postgres_host,
-  port: process.env.postgres_port,
-  database: process.env.postgres_db,
-  ssl: { rejectUnauthorized: false }
-});
-
-postgresDB.connect()
-  .then(() => console.log("\x1b[32m[BOT]\x1b[0m = Successful Database Connection"))
-  .catch(e => console.log(e))
 
 client.login(token) // allows bot to login into the server with a token.
 console.log('\x1b[32m[BOT]\x1b[0m = Logged in')
@@ -43,7 +29,7 @@ client.on('ready', () => {
 //welcome to server message and role assignment
 client.on('guildMemberAdd', member => {
   if(member.user.bot == true) {
-    member.roles.add(member.guild.roles.cache.find(role => role.name === "🚦BOTS🚦"));
+    member.roles.add(member.guild.roles.cache.get('401391033314705421'));
   }
   else {
     const welcomeChannel = member.guild.channels.cache.get('401390003919519745');
@@ -231,11 +217,11 @@ client.on('messageReactionAdd', (reaction, user) => {
     if (reaction.message.content === '$tournament') {
       switch (name) {
         case '🔥':
-          member.roles.add('772590496697679873');
+          member.roles.add(member.guild.roles.cache.get('772590496697679873'));
           console.log(`Team Pyro: ${member}`);
           break;
         case '🌊':
-          member.roles.add('772590499230908436');
+          member.roles.add(member.guild.roles.cache.get('772590499230908436'));
           console.log(`Team Ocean: ${member}`);
           break;
       }
@@ -250,11 +236,11 @@ client.on('messageReactionRemove', (reaction, user) => {
     if (reaction.message.content === '$tournament') {
       switch (name) {
         case '🔥':
-          member.roles.remove('772590496697679873');
+          member.roles.remove(member.guild.roles.cache.get('772590496697679873'));
           console.log(`Removed: ${member}`);
           break;
         case '🌊':
-          member.roles.remove('772590499230908436');
+          member.roles.remove(member.guild.roles.cache.get('772590499230908436'));
           console.log(`Removed: ${member}`);
           break;
       }
