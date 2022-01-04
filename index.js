@@ -216,11 +216,11 @@ client.on('messageReactionAdd', (reaction, user) => {
   if (user.bot == false) {
     if (reaction.message.content === '$tournament') {
       switch (name) {
-        case '🔥':
+        case ':fire:':
           member.roles.add(member.guild.roles.cache.get('772590496697679873'));
           console.log(`Team Pyro: ${member}`);
           break;
-        case '🌊':
+        case ':water:':
           member.roles.add(member.guild.roles.cache.get('772590499230908436'));
           console.log(`Team Ocean: ${member}`);
           break;
@@ -235,11 +235,11 @@ client.on('messageReactionRemove', (reaction, user) => {
   if (user.bot == false) {
     if (reaction.message.content === '$tournament') {
       switch (name) {
-        case '🔥':
+        case ':fire:':
           member.roles.remove(member.guild.roles.cache.get('772590496697679873'));
           console.log(`Removed: ${member}`);
           break;
-        case '🌊':
+        case ':water:':
           member.roles.remove(member.guild.roles.cache.get('772590499230908436'));
           console.log(`Removed: ${member}`);
           break;
