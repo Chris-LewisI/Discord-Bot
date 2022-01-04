@@ -72,7 +72,7 @@ client.on('guildMemberRemove', member => {
 });
 
 client.on('message', async (message) => {
-  if (message.content.startsWith("shit")) {
+  if (message.content.includes("shit") || message.content.includes("fuck") || message.content.includes("ass") || message.content.includes("bitch") || message.content.includes("fag") || message.content.includes("gay")) {
     message.delete()
   }
 })
