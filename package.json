@@ -9,7 +9,7 @@
   "author": "Chris Ibraheem",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/opus": "^0.3.3",
+    "@discordjs/opus": "^0.8.0",
     "csv-writer": "^1.6.0",
     "discord-player": "^3.0.3",
     "discord.js": "^12.5.3",
