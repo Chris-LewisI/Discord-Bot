@@ -2,9 +2,9 @@ console.time('\x1b[32m[BOT]\x1b[0m = startup')
 require('dotenv').config();
 const Discord = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
-const prefix = process.env.prefix;
-const token = process.env.token;
-const giphyAPIToken = process.env.giphyAPIToken;
+const prefix = process.env.PREFIX;
+const token = process.env.TOKEN;
+const giphyAPIToken = process.env.GIPHYAPI;
 const { version } = require('./package.json');
 var GphApiClient = require('giphy-js-sdk-core');
 const giphy = GphApiClient(giphyAPIToken);
