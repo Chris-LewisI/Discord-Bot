@@ -1,6 +1,6 @@
 console.time('\x1b[32m[BOT]\x1b[0m = startup')
 require('dotenv').config();
-const Discord = require('discord.js');
+const { Client, GatewayIntentBits } = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
 const prefix = process.env.PREFIX;
 const token = process.env.TOKEN;
@@ -9,7 +9,7 @@ const { version } = require('./package.json');
 var GphApiClient = require('giphy-js-sdk-core');
 const giphy = GphApiClient(giphyAPIToken);
 
-const client = new Discord.Client({
+const client = new Client({
   partials: ['MESSAGE', 'REACTION'],
   intents: [
 		GatewayIntentBits.Guilds,
