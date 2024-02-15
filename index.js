@@ -10,7 +10,13 @@ var GphApiClient = require('giphy-js-sdk-core');
 const giphy = GphApiClient(giphyAPIToken);
 
 const client = new Discord.Client({
-  partials: ['MESSAGE', 'REACTION']
+  partials: ['MESSAGE', 'REACTION'],
+  intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers,
+	]
 });
 
 client.login(token) // allows bot to login into the server with a token.
