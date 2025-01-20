@@ -1,18 +1,14 @@
 console.time('\x1b[32m[BOT]\x1b[0m = startup')
 require('dotenv').config();
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
-const prefix = process.env.PREFIX;
 const token = process.env.TOKEN;
-const giphyAPIToken = process.env.GIPHYAPI;
 const { version } = require('./package.json');
-var GphApiClient = require('giphy-js-sdk-core');
-const giphy = GphApiClient(giphyAPIToken);
 
 const client = new Client({
   partials: ['MESSAGE', 'REACTION'],
   intents: [
-		GatewayIntentBits.Guilds,
+	 GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.MessageContent,
 		GatewayIntentBits.GuildMembers,
@@ -33,14 +29,15 @@ client.on('ready', () => {
 })
 
 //welcome to server message and role assignment
-client.on('guildMemberAdd', member => {
+client.on('guildMemberAdd', async (member) => {
   if(member.user.bot == true) {
-    member.roles.add(member.guild.roles.cache.get('401391033314705421'));
+    await member.roles.add(member.guild.roles.cache.get('401391033314705421'));
   }
   else {
     const welcomeChannel = member.guild.channels.cache.get('401390003919519745');
     const welcomeText = `Welcome to ${member.guild.name}, <@${member.user.id}>!`;
-    member.roles.add(member.guild.roles.cache.get('421685459136020480'));
+    
+    await member.roles.add(member.guild.roles.cache.get('421685459136020480'));
 
     Promise.resolve(welcomeText).then(function (welcomeText) {
       welcomeChannel.send(welcomeText);
@@ -63,88 +60,59 @@ client.on('guildMemberRemove', member => {
   }
 });
 
-client.on('message', async (message) => {
-  if (message.content.includes("shit") || message.content.includes("fuck") || message.content.includes("ass") || message.content.includes("bitch") || message.content.includes("fag") || message.content.includes("gay")) {
-    message.delete()
+client.on('messageCreate', async (message) => {
+  const bannedWords = ['shit', 'fuck', 'gay', 'bitch', 'fag', 'ass']
+  const lowerCaseMessage = message.content.toLowerCase();
+  if (bannedWords.some(word => lowerCaseMessage.includes(word))) {
+    await message.delete();
+    await message.channel.send(`Bad boy, you can't say that!`);
   }
 })
 
+client.on('messageCreate', async message => {
+  // Ignore messages from the bot itself
+  if (message.author.bot) return;
 
-client.on('message', async (message) => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return
+  // Commands
+  if (message.content === '$hello') {
+    message.reply('Hello there!');
+  } else if (message.content === '$ping') {
+      const days = Math.floor(client.uptime / 86400000)
+      const hours = Math.floor(client.uptime / 3600000) % 24
+      const minutes = Math.floor(client.uptime / 60000) % 60
+      const seconds = Math.floor(client.uptime / 1000) % 60
+      const uptimeString = `${days}d ${hours}h ${minutes}m ${seconds}s`
 
-  const args = message.content.slice(prefix.length).split(/ +/)
-  const command = args.shift().toLowerCase()
+      const koftaImage = new AttachmentBuilder('./assets/kofta.png');
+      const serverImage = new AttachmentBuilder('./assets/server.gif');
 
-  if (command === 'info') {
-    const days = Math.floor(client.uptime / 86400000)
-    const hours = Math.floor(client.uptime / 3600000) % 24
-    const minutes = Math.floor(client.uptime / 60000) % 60
-    const seconds = Math.floor(client.uptime / 1000) % 60
+      const embed = new EmbedBuilder()
+        .setImage('attachment://server.gif')
+        .setColor('#ffee00')
+        .setThumbnail('attachment://kofta.png')
+        .setTitle('Server ON 🟢')
+        .setDescription(`Bot has been running for: **${uptimeString}**\nBot ping: ${client.ws.ping}ms`)
 
-    const embed = new Discord.MessageEmbed()
-      .attachFiles([server, kofta])
-      .setColor('#ffee00')
-      .setThumbnail('attachment://server.gif')
-      .setAuthor(client.user.username, 'attachment://kofta.png')
-      .setTitle('Server ON 🟢')
-      .addFields(
-        { name: 'Server:', value: `**U P T I M E\n** ${days}d ${hours}h ${minutes}m ${seconds}s\n\n**P I N G\n** ${client.ws.ping}ms`, inline: true })
+      await message.channel.send({
+        embeds: [embed],
+        files: [koftaImage, serverImage]
+      });
+      return
+  } else if (message.content === '$help') {
+      const koftaImage = new AttachmentBuilder('./assets/kofta.png');
+      const falloutImage = new AttachmentBuilder('./assets/fallout.gif');
 
-    message.channel.send(embed)
-    return
+      const embed = new EmbedBuilder()
+        .setColor('#ffee00')
+        .setImage('attachment://fallout.gif')
+        .setThumbnail('attachment://kofta.png')
+        .setTitle('Help is here!')
+        .setDescription(`- $ping: Run the '$ping' command to get stats on the bot's uptime and ping.`)
+
+      await message.channel.send({
+        embeds: [embed],
+        files: [falloutImage, koftaImage]
+      });
+      return
   }
-
-  if (command === 'help') {
-    const embed = new Discord.MessageEmbed()
-      .attachFiles([fallout, kofta])
-      .setColor('#ffee00')
-      .setThumbnail('attachment://fallout.gif')
-      .setAuthor(client.user.username, 'attachment://kofta.png')
-      .setTitle('Help is here!')
-      .addFields(
-        { name: 'KOFTA Version:', value: `*${version}*\n**C O M M A N D S**\n- "//info" : Displays KOFTA's uptime and ping!\n**U P D A T E S**\n`, inline: true })
-
-    message.channel.send(embed)
-    return
-  }
-})
-
-//manage teams for warzone tournaments
-client.on('messageReactionAdd', (reaction, user) => {
-  const { name } = reaction.emoji;
-  const member = reaction.message.guild.members.cache.get(user.id);
-  if (user.bot == false) {
-    if (reaction.message.content === '$tournament') {
-      switch (name) {
-        case ':fire:':
-          member.roles.add(member.guild.roles.cache.get('772590496697679873'));
-          console.log(`Team Pyro: ${member}`);
-          break;
-        case ':water:':
-          member.roles.add(member.guild.roles.cache.get('772590499230908436'));
-          console.log(`Team Ocean: ${member}`);
-          break;
-      }
-    }
-  }
-})
-
-client.on('messageReactionRemove', (reaction, user) => {
-  const { name } = reaction.emoji;
-  const member = reaction.message.guild.members.cache.get(user.id);
-  if (user.bot == false) {
-    if (reaction.message.content === '$tournament') {
-      switch (name) {
-        case ':fire:':
-          member.roles.remove(member.guild.roles.cache.get('772590496697679873'));
-          console.log(`Removed: ${member}`);
-          break;
-        case ':water:':
-          member.roles.remove(member.guild.roles.cache.get('772590499230908436'));
-          console.log(`Removed: ${member}`);
-          break;
-      }
-    }
-  }
-})
+});
