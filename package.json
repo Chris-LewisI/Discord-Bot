@@ -9,7 +9,7 @@
   "author": "Chris Ibraheem",
   "license": "ISC",
   "dependencies": {
-    "bad-words": "^4.0.0",
+    "bad-words": "^3.0.4",
     "discord.js": "^14.17.3",
     "dotenv": "^8.6.0"
   },
