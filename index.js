@@ -4,6 +4,8 @@ const { Client, GatewayIntentBits, EmbedBuilder, AttachmentBuilder } = require('
 const { fallout, server, kofta, thumbUp } = require('./assets');
 const token = process.env.TOKEN;
 const { version } = require('./package.json');
+const Filter = require('bad-words');
+const filter = new Filter();
 
 const client = new Client({
   partials: ['MESSAGE', 'REACTION'],
@@ -61,9 +63,7 @@ client.on('guildMemberRemove', member => {
 });
 
 client.on('messageCreate', async (message) => {
-  const bannedWords = ['shit', 'fuck', 'gay', 'bitch', 'fag', 'ass']
-  const lowerCaseMessage = message.content.toLowerCase();
-  if (bannedWords.some(word => lowerCaseMessage.includes(word))) {
+  if (filter.isProfane(message.content)) {
     await message.delete();
     await message.channel.send(`Bad boy, you can't say that!`);
   }
@@ -90,7 +90,7 @@ client.on('messageCreate', async message => {
         .setImage('attachment://server.gif')
         .setColor('#ffee00')
         .setThumbnail('attachment://kofta.png')
-        .setTitle('Server ON 🟢')
+        .setTitle(`KOFTA V${version} ON 🟢`)
         .setDescription(`Bot has been running for: **${uptimeString}**\nBot ping: ${client.ws.ping}ms`)
 
       await message.channel.send({

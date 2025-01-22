@@ -1,6 +1,6 @@
 {
   "name": "discord-bot",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "description": "A bot used in Discord :)",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "author": "Chris Ibraheem",
   "license": "ISC",
   "dependencies": {
+    "bad-words": "^4.0.0",
     "discord.js": "^14.17.3",
     "dotenv": "^8.6.0"
   },
