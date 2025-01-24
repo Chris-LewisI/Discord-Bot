@@ -64,7 +64,7 @@ client.on('guildMemberRemove', member => {
 
 client.on('messageCreate', async (message) => {
   if (filter.isProfane(message.content)) {
-    console.log(`User: ${member.user.tag} said: "${message.content}"`);
+    await console.log(`User: ${member.user.tag} said: "${message.content}"`);
     await message.delete();
     await message.channel.send(`Bad boy, you can't say that!`);
   }
