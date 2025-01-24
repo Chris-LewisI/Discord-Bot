@@ -3,6 +3,9 @@ require('dotenv').config();
 const { Client, GatewayIntentBits, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { fallout, server, kofta, thumbUp } = require('./assets');
 const token = process.env.TOKEN;
+const entry_role = process.env.ENTRY_ROLE;
+const bot_role = process.env.BOT_ROLE;
+const welcome_channel = process.env.WELCOME_CHANNEL;
 const { version } = require('./package.json');
 const Filter = require('bad-words');
 const filter = new Filter();
@@ -33,13 +36,13 @@ client.on('ready', () => {
 //welcome to server message and role assignment
 client.on('guildMemberAdd', async (member) => {
   if(member.user.bot == true) {
-    await member.roles.add(member.guild.roles.cache.get('401391033314705421'));
+    await member.roles.add(member.guild.roles.cache.get(bot_role));
   }
   else {
-    const welcomeChannel = member.guild.channels.cache.get('401390003919519745');
+    const welcomeChannel = member.guild.channels.cache.get(welcome_channel);
     const welcomeText = `Welcome to ${member.guild.name}, <@${member.user.id}>!`;
     
-    await member.roles.add(member.guild.roles.cache.get('421685459136020480'));
+    await member.roles.add(member.guild.roles.cache.get(entry_role));
 
     Promise.resolve(welcomeText).then(function (welcomeText) {
       welcomeChannel.send(welcomeText);
@@ -53,7 +56,7 @@ client.on('guildMemberRemove', member => {
     console.log(`BOT: ${member.user.tag} has been removed.`);
   }
   else {
-    const leaveChannel = member.guild.channels.cache.get('401390003919519745');
+    const leaveChannel = member.guild.channels.cache.get(welcome_channel);
     const farewellText = `We're sorry to see you leaving ${member.user.tag}!`
 
     Promise.resolve(farewellText).then(function (farewellText) {
