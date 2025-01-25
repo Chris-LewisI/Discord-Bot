@@ -11,7 +11,9 @@ services:
     environment:
       - TOKEN=
       - WELCOME_CHANNEL=
+      - MEMBER_CHANNEL=
       - ENTRY_ROLE=
       - BOT_ROLE=
+      - WEATHER=
     command: sh -c "npm install && node index.js"
     restart: always
