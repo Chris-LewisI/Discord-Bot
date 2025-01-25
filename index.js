@@ -11,6 +11,7 @@ const member_channel = process.env.MEMBER_CHANNEL;
 const { version } = require('./package.json');
 const Filter = require('bad-words');
 const filter = new Filter();
+const cron = require('node-cron');
 
 const client = new Client({
   partials: ['MESSAGE', 'REACTION'],
@@ -145,8 +146,6 @@ client.on('messageCreate', async message => {
         });
     }
 });
-
-const cron = require('node-cron');
 
 // Schedule a task to run at 10 AM every day
 cron.schedule('0 10 * * *', () => {
