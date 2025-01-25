@@ -6,6 +6,8 @@ const token = process.env.TOKEN;
 const entry_role = process.env.ENTRY_ROLE;
 const bot_role = process.env.BOT_ROLE;
 const welcome_channel = process.env.WELCOME_CHANNEL;
+const weatherAPI = process.env.WEATHER;
+const member_channel = process.env.MEMBER_CHANNEL;
 const { version } = require('./package.json');
 const Filter = require('bad-words');
 const filter = new Filter();
@@ -73,6 +75,17 @@ client.on('messageCreate', async (message) => {
   }
 })
 
+const weatherApiRequest = async (city) => {
+  const apiEndpoint = `http://api.openweathermap.org/data/2.5/weather?units=imperial&q=${city}&appid=${weatherAPI}`;
+  try {
+    const response = await fetch(apiEndpoint);
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 client.on('messageCreate', async message => {
   // Ignore messages from the bot itself
   if (message.author.bot) return;
@@ -95,7 +108,7 @@ client.on('messageCreate', async message => {
         .setColor('#ffee00')
         .setThumbnail('attachment://kofta.png')
         .setTitle(`KOFTA V${version} ON 🟢`)
-        .setDescription(`Bot has been running for: **${uptimeString}**\nBot ping: ${client.ws.ping}ms`)
+        .setDescription(`KOFTA Uptime: **${uptimeString}**\nKOFTA Ping: ${client.ws.ping}ms`)
 
       await message.channel.send({
         embeds: [embed],
@@ -111,7 +124,7 @@ client.on('messageCreate', async message => {
         .setImage('attachment://fallout.gif')
         .setThumbnail('attachment://kofta.png')
         .setTitle('Help is here!')
-        .setDescription(`- $ping: Run the '$ping' command to get stats on the bot's uptime and ping.`)
+        .setDescription(`- $ping: Run the '$ping' command to get stats on the bot's uptime and ping.\n- $weather <city> command gives you the weather in Farenheit of any city.\nContact WUTNG for any feature requests for KOFTA.`)
 
       await message.channel.send({
         embeds: [embed],
@@ -119,4 +132,35 @@ client.on('messageCreate', async message => {
       });
       return
   }
+    else if (message.content.includes("$weather")){
+        const city = message.content.split(' ').slice(1).join(' ');
+        weatherApiRequest(city).then((weatherData) => {
+          if (!weatherData) {
+            message.channel.send(`Invalid City or BOT error.`)
+          } else {
+            console.log(weatherData);
+            const weatherSummary = `${weatherData.weather[0].main} (${weatherData.main.temp}°F)`;
+            message.channel.send(`The current weather in ${city} is: ${weatherSummary}`);
+          }
+        });
+    }
+});
+
+const cron = require('node-cron');
+
+// Schedule a task to run at 10 AM every day
+cron.schedule('0 10 * * *', () => {
+    console.log('Running the command at 10 AM every day');
+    const memberChannel = member.guild.channels.cache.get(member_channel);
+    weatherApiRequest('New York').then((weatherData) => {
+      if (!weatherData) {
+        memberChannel.send(`Invalid City or BOT error.`)
+      } else {
+        const weatherSummary = `${weatherData.weather[0].main} (${weatherData.main.temp}°F)`;
+        memberChannel.send(`Good morning Molokhia! Weather in ${city} is: ${weatherSummary}`);
+      }
+    });
+}, {
+    scheduled: true,
+    timezone: "America/New_York" // Adjust for your timezone
 });
