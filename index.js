@@ -95,7 +95,7 @@ client.on('messageCreate', async message => {
         .setColor('#ffee00')
         .setThumbnail('attachment://kofta.png')
         .setTitle(`KOFTA V${version} ON 🟢`)
-        .setDescription(`Bot has been running for: **${uptimeString}**\nBot ping: ${client.ws.ping}ms`)
+        .setDescription(`KOFTA Uptime: **${uptimeString}**\nKOFTA Ping: ${client.ws.ping}ms`)
 
       await message.channel.send({
         embeds: [embed],
@@ -111,7 +111,7 @@ client.on('messageCreate', async message => {
         .setImage('attachment://fallout.gif')
         .setThumbnail('attachment://kofta.png')
         .setTitle('Help is here!')
-        .setDescription(`- $ping: Run the '$ping' command to get stats on the bot's uptime and ping.`)
+        .setDescription(`- $ping: Run the '$ping' command to get stats on the bot's uptime and ping.\n- $weather <city> command gives you the weather in Farenheit of any city.\nContact WUTNG for any feature requests for KOFTA.`)
 
       await message.channel.send({
         embeds: [embed],
