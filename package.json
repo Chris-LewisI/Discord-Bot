@@ -11,7 +11,7 @@
   "dependencies": {
     "bad-words": "^3.0.4",
     "discord.js": "^14.17.3",
-    "dotenv": "^8.6.0",
+    "dotenv": "^8.6.0"
   },
   "engines": {
     "node": "20.16.0"
