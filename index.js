@@ -23,8 +23,12 @@ const client = new Client({
 	]
 });
 
-client.login(token) // allows bot to login into the server with a token.
-console.log('\x1b[32m[BOT]\x1b[0m = Logged in')
+if (!processs.env.CI_TEST) {
+	client.login(token) // allows bot to login into the server with a token.
+	console.log('\x1b[32m[BOT]\x1b[0m = Logged in')
+} else {
+	console.log("Skipping login in CI environment.");
+}
 
 client.on('ready', () => {
   try {
