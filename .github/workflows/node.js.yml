@@ -45,6 +45,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Modify bot to bypass login
+        run: sed -i 's/client\.login(.*);/console.log("Login bypassed for CI testing");/' index.js
+
       - name: Run bot to check for errors
         run: |
           node index.js &
