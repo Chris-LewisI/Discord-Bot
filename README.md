@@ -1,5 +1,5 @@
 # Discord-Bot
-A bot for the Discord application programmed using the DiscordJS library on the NodeJS engine.
+*A bot for the Discord application programmed using the DiscordJS library on the NodeJS engine.*
 
 ### Features:
 - Automatically places new users in a predefined role.
