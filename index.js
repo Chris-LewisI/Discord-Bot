@@ -30,6 +30,27 @@ if (!process.env.CI_TEST) {
 	console.log("Skipping login in CI environment.");
 }
 
+// Basic error handling
+client.on('error', (error) => {
+  console.error("Client error detected:", error);
+  process.exit(1);
+});
+
+client.once('ready', () => {
+  console.log('Bot is ready (or simulated in CI).');
+});
+
+// Simulated commands or functionality for CI
+if (process.env.CI_TEST) {
+  try {
+    // Example: Mock event to validate the structure
+    client.emit('ready');
+  } catch (error) {
+    console.error("Mocked event error:", error);
+    process.exit(1);
+  }
+}
+
 client.on('ready', () => {
   try {
     client.user.setStatus('dnd')
