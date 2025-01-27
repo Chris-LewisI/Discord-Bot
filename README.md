@@ -1,4 +1,7 @@
-# **​🇰​​🇴​​🇫​​🇹​​🇦**![kofta](https://github.com/user-attachments/assets/65c0c79c-347b-4960-8f83-06c038a468e7)
+# **​🇰​​🇴​​🇫​​🇹​​🇦**
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/65c0c79c-347b-4960-8f83-06c038a468e7" />
+</p>
 
 *A bot made for the Discord application programmed using the DiscordJS library on the NodeJS engine.*
 KOFTA is useful for automating certain processes within a Discord channel that would normally be done manually by a server administrator. It also has some fun features that are non-essential but nonetheless enjoyable to have.
