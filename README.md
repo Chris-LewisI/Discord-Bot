@@ -2,7 +2,7 @@
 *A bot made for the Discord application programmed using the DiscordJS library on the NodeJS engine.*
 KOFTA is useful for automating certain processes within a Discord channel that would normally be done manually by a server administrator. It also has some fun features that are non-essential but nonetheless enjoyable to have.
 
-### **Features**:
+### **Features**
 - Automatically places new users in a predefined role.
 - Notifies server of new joiner.
 - Notifies server of leaver.
@@ -10,7 +10,7 @@ KOFTA is useful for automating certain processes within a Discord channel that w
 - Can provide the current weather conditions and temperature of any city in the world.
 ---
 
-### **Dependencies**:
+### **Dependencies**
 - NodeJS v20.16.0 (or higher)
 - NPM (Node Package Manager) 9.2.0 (or higher)
 - Docker and Docker Compose (if containerizing the bot)
@@ -18,7 +18,7 @@ KOFTA is useful for automating certain processes within a Discord channel that w
 - You must get a token by creating a bot in the Discord Developer Portal at this link: https://discord.com/developers/applications
 ---
 
-## **Installation and Execution**:
+## **Installation and Execution**
 ### Option 1 | Run on OS (Windows WSL & Ubuntu):
 - Update and upgrade all packages: `sudo apt update && sudo apt upgrade -y`
 - Install npm and nodejs: `sudo apt install npm nodejs`
@@ -31,13 +31,16 @@ KOFTA is useful for automating certain processes within a Discord channel that w
 - Spin up the Docker container with the following command: `sudo docker compose -f kofta.yml up -d --force-recreate`
 ---
 
-## **Update**:
+## **Update**
 - On OS you must update nodejs, npm, and pull the latest version of the bot from this project and rerun it.
 - If your bot is containerized on Docker you can pull the latest image from GitHub and rerun the docker compose command: `sudo docker compose -f kofta.yml up -d --force-recreate`. This will recreate the existing docker container but by pulling the latest data from the application files.
 ---
 
-## **Configuration**:
+## **Configuration**
 - Adjust the enviornment variables in the kofta.yml or in your own .env to match those of your server and bot.
 
-## **FAQ**:
+## **FAQ**
 Under Construction...
+
+## **Authors and Acknowledgment**
+**​🇰​​🇴​​🇫​​🇹​​🇦** was created by **[Chris Lewis](https://github.com/Chris-LewisI)**.
