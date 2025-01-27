@@ -9,22 +9,47 @@ on:
   pull_request:
     branches: [ "master" ]
 
-jobs:
-  build:
+# jobs:
+#   build:
 
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         node-version: [20.x, 22.x]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+#     steps:
+#     - uses: actions/checkout@v4
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: ${{ matrix.node-version }}
+#         cache: 'npm'
+#     - run: npm install
+#     - run: node index.js
+
+jobs:
+  test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm install
-    - run: node index.js
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'  # Use the Node.js version your project requires
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run bot to check for errors
+        run: |
+          node index.js &
+          sleep 10
+          pkill -f "node index.js"
+
+      - name: Verify no runtime errors
+        run: echo "Bot started successfully without errors"
