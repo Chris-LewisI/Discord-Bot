@@ -11,7 +11,7 @@ const member_channel = process.env.MEMBER_CHANNEL;
 const { version } = require('./package.json');
 const Filter = require('bad-words');
 const filter = new Filter();
-const cron = require('node-cron');
+const moment = require('moment');
 
 const client = new Client({
   partials: ['MESSAGE', 'REACTION'],
@@ -173,18 +173,19 @@ client.on('messageCreate', async message => {
 });
 
 // Schedule a task to run at 10 AM every day
-cron.schedule('0 10 * * *', () => {
-    console.log('Running the command at 10 AM every day');
+setInterval(() => {
+  const currentTime = moment();
+  if (currentTime.hour() === 10) {
     const memberChannel = member.guild.channels.cache.get(member_channel);
     weatherApiRequest('New York').then((weatherData) => {
       if (!weatherData) {
-        memberChannel.send(`Invalid City or BOT error.`)
+        message.memberChannel.send(`Invalid City or BOT error.`)
       } else {
         const weatherSummary = `${weatherData.weather[0].main} (${weatherData.main.temp}°F)`;
-        memberChannel.send(`Good morning Molokhia! Weather in ${city} is: ${weatherSummary}`);
+        message.memberChannel.send(`The current weather in ${city} is: ${weatherSummary}`);
       }
     });
-}, {
-    scheduled: true,
-    timezone: "America/New_York" // Adjust for your timezone
-});
+  } else {
+    console.log('BOT: weather update at 10AM')
+  }
+}, 1000 * 60 * 60); //run every hour 
