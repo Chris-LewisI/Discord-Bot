@@ -175,7 +175,7 @@ client.on('messageCreate', async message => {
 // Schedule a task to run at 10 AM every day
 setInterval(() => {
   const currentTime = moment();
-  if (currentTime.hour() === 10) {
+  if (currentTime.hour() === 11) {
     const memberChannel = member.guild.channels.cache.get(member_channel);
     weatherApiRequest('New York').then((weatherData) => {
       if (!weatherData) {
