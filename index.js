@@ -185,7 +185,5 @@ setInterval(() => {
         message.memberChannel.send(`The current weather in ${city} is: ${weatherSummary}`);
       }
     });
-  } else {
-    console.log('BOT: weather update at 10AM')
   }
-}, 1000 * 60 * 60); //run every hour 
+}, 60000); //run every hour 
