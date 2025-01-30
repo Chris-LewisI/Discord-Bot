@@ -175,15 +175,30 @@ client.on('messageCreate', async message => {
 // Schedule a task to run at 10 AM every day
 setInterval(() => {
   const currentTime = moment();
-  if (currentTime.hour() === 11) {
+  if (currentTime.hour() === 10 && currentTime.minute() === 0) { // check hour and minute for noon
     const memberChannel = member.guild.channels.cache.get(member_channel);
     weatherApiRequest('New York').then((weatherData) => {
       if (!weatherData) {
-        message.memberChannel.send(`Invalid City or BOT error.`)
+        console.log("Invalid City or BOT error."); // log the error instead of sending a message
+        // you can also send an alert to your own channel or email with this information
       } else {
         const weatherSummary = `${weatherData.weather[0].main} (${weatherData.main.temp}°F)`;
-        message.memberChannel.send(`The current weather in ${city} is: ${weatherSummary}`);
+        memberChannel.send(`The current weather in New York is: ${weatherSummary}`);
       }
+    }).catch((error) => {
+      console.error("Error fetching weather data:", error); // log any errors that occur
+    });
+  } else if (currentTime.hour() >= 10 && currentTime.hour() < 22) { // check if its daytime (morning to evening)
+    const memberChannel = member.guild.channels.cache.get(member_channel);
+    weatherApiRequest('New York').then((weatherData) => {
+      if (!weatherData) {
+        console.log("Invalid City or BOT error.");
+      } else {
+        const weatherSummary = `${weatherData.weather[0].main} (${weatherData.main.temp}°F)`;
+        memberChannel.send(`The current weather in New York is: ${weatherSummary}`);
+      }
+    }).catch((error) => {
+      console.error("Error fetching weather data:", error);
     });
   }
 }, 60000); //run every hour 
