@@ -3,11 +3,11 @@ version: '3.8'
 services:
   discord-bot:
     build: .
-    image: node:20-alpine  # Use official Node.js image
+    image: node:20-alpine # Use official Node.js image
     container_name: discord-bot
     working_dir: /app
     volumes:
-      - /path/to/index-directory/:/app  # Mount host directory to container
+      - /path/to/index-directory/:/app # Mount host directory to container
     environment:
       - TOKEN=
       - WELCOME_CHANNEL=
