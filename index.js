@@ -9,7 +9,10 @@ import {
 import Filter from 'bad-words';
 import moment from 'moment';
 import fetch from 'node-fetch';
-import { version } from './package.json';
+import fs from 'fs';
+
+const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+const version = packageJson.version;
 
 // Load environment variables
 const token = process.env.TOKEN;
