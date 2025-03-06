@@ -1,15 +1,15 @@
 console.time('\x1b[32m[BOT]\x1b[0m = startup');
-require('dotenv').config();
-const {
+import 'dotenv/config';
+import {
   Client,
   GatewayIntentBits,
   EmbedBuilder,
   AttachmentBuilder,
-} = require('discord.js');
-const Filter = require('bad-words');
-const moment = require('moment');
-const fetch = require('node-fetch');
-const { version } = require('./package.json');
+} from 'discord.js';
+import Filter from 'bad-words';
+import moment from 'moment';
+import fetch from 'node-fetch';
+import { version } from './package.json';
 
 // Load environment variables
 const token = process.env.TOKEN;
