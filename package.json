@@ -2,6 +2,7 @@
   "name": "discord-bot",
   "version": "3.3.0",
   "description": "A bot used in Discord :)",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
