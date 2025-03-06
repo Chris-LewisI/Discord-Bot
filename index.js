@@ -6,19 +6,22 @@ const {
   EmbedBuilder,
   AttachmentBuilder,
 } = require('discord.js');
+const Filter = require('bad-words');
+const moment = require('moment');
+const fetch = require('node-fetch');
+const { version } = require('./package.json');
+
+// Load environment variables
 const token = process.env.TOKEN;
 const entry_role = process.env.ENTRY_ROLE;
 const bot_role = process.env.BOT_ROLE;
 const welcome_channel = process.env.WELCOME_CHANNEL;
 const weatherAPI = process.env.WEATHER;
 const member_channel = process.env.MEMBER_CHANNEL;
-const { version } = require('./package.json');
-const Filter = require('bad-words');
+
 const filter = new Filter();
-const moment = require('moment');
 
 const client = new Client({
-  partials: ['MESSAGE', 'REACTION'],
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
@@ -27,195 +30,148 @@ const client = new Client({
   ],
 });
 
+// Login bot if not in CI environment
 if (!process.env.CI_TEST) {
-  client.login(token); // allows bot to login into the server with a token.
-  console.log('\x1b[32m[BOT]\x1b[0m = Logged in');
+  client.login(token).then(() => {
+    console.log('\x1b[32m[BOT]\x1b[0m = Logged in');
+  }).catch((err) => {
+    console.error('Failed to login:', err);
+    process.exit(1);
+  });
 } else {
   console.log('Skipping login in CI environment.');
 }
 
-// Basic error handling
+// Handle errors globally
 client.on('error', (error) => {
   console.error('Client error detected:', error);
-  process.exit(1);
 });
 
 client.once('ready', () => {
-  console.log('Bot is ready (or simulated in CI).');
-});
-
-// Simulated commands or functionality for CI
-if (process.env.CI_TEST) {
-  try {
-    // Example: Mock event to validate the structure
-    client.emit('ready');
-  } catch (error) {
-    console.error('Mocked event error:', error);
-    process.exit(1);
-  }
-}
-
-client.on('ready', () => {
+  console.log('Bot is ready.');
   try {
     client.user.setStatus('dnd');
     client.user.setActivity('with french fries 🍟');
     console.timeEnd('\x1b[32m[BOT]\x1b[0m = startup');
   } catch (error) {
-    console.log(error);
+    console.error('Error setting bot status:', error);
   }
 });
 
-//welcome to server message and role assignment
+// Welcome new members and assign roles
 client.on('guildMemberAdd', async (member) => {
-  if (member.user.bot == true) {
-    await member.roles.add(member.guild.roles.cache.get(bot_role));
-  } else {
-    const welcomeChannel = member.guild.channels.cache.get(welcome_channel);
-    const welcomeText = `Welcome to ${member.guild.name}, <@${member.user.id}>!`;
-
-    await member.roles.add(member.guild.roles.cache.get(entry_role));
-
-    Promise.resolve(welcomeText).then(function (welcomeText) {
-      welcomeChannel.send(welcomeText);
-    });
+  try {
+    const guild = member.guild;
+    const role = member.user.bot ? bot_role : entry_role;
+    await member.roles.add(guild.roles.cache.get(role));
+    
+    if (!member.user.bot) {
+      const welcomeChannel = guild.channels.cache.get(welcome_channel);
+      if (welcomeChannel) {
+        welcomeChannel.send(`Welcome to ${guild.name}, <@${member.user.id}>!`);
+      }
+    }
+  } catch (error) {
+    console.error('Error handling new member:', error);
   }
 });
 
-//farewell from server message
+// Farewell message when a member leaves
 client.on('guildMemberRemove', (member) => {
-  if (member.user.bot == true) {
-    console.log(`BOT: ${member.user.tag} has been removed.`);
-  } else {
-    const leaveChannel = member.guild.channels.cache.get(welcome_channel);
-    const farewellText = `We're sorry to see you leaving ${member.user.tag}!`;
-
-    Promise.resolve(farewellText).then(function (farewellText) {
-      leaveChannel.send(farewellText);
-    });
+  try {
+    if (!member.user.bot) {
+      const leaveChannel = member.guild.channels.cache.get(welcome_channel);
+      if (leaveChannel) {
+        leaveChannel.send(`We're sorry to see you leave, ${member.user.tag}!`);
+      }
+    } else {
+      console.log(`BOT: ${member.user.tag} has been removed.`);
+    }
+  } catch (error) {
+    console.error('Error handling member leave:', error);
   }
 });
 
+// Detect and delete profane messages
 client.on('messageCreate', async (message) => {
+  if (message.author.bot) return;
   if (filter.isProfane(message.content)) {
-    await console.log(`User: ${message.author.tag} said: "${message.content}"`);
+    console.log(`User: ${message.author.tag} said: "${message.content}"`);
     await message.delete();
     await message.channel.send(`Bad boy, you can't say that!`);
   }
 });
 
+// Fetch weather data
 const weatherApiRequest = async (city) => {
   const apiEndpoint = `http://api.openweathermap.org/data/2.5/weather?units=imperial&q=${city}&appid=${weatherAPI}`;
   try {
     const response = await fetch(apiEndpoint);
     return await response.json();
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching weather data:', error);
     return null;
   }
 };
 
+// Handle bot commands
 client.on('messageCreate', async (message) => {
-  // Ignore messages from the bot itself
   if (message.author.bot) return;
+  const args = message.content.split(' ');
+  const command = args.shift().toLowerCase();
 
-  // Commands
-  if (message.content === '$hello') {
-    message.reply('Hello there!');
-  } else if (message.content === '$ping') {
-    const days = Math.floor(client.uptime / 86400000);
-    const hours = Math.floor(client.uptime / 3600000) % 24;
-    const minutes = Math.floor(client.uptime / 60000) % 60;
-    const seconds = Math.floor(client.uptime / 1000) % 60;
-    const uptimeString = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  switch (command) {
+    case '$hello':
+      message.reply('Hello there!');
+      break;
+    
+    case '$ping': {
+      const uptimeString = moment.duration(client.uptime).humanize();
+      const embed = new EmbedBuilder()
+        .setColor('#ffee00')
+        .setTitle(`KOFTA V${version} ON 🟢`)
+        .setDescription(`KOFTA Uptime: **${uptimeString}**\nKOFTA Ping: ${client.ws.ping}ms`);
+      await message.channel.send({ embeds: [embed] });
+      break;
+    }
 
-    const koftaImage = new AttachmentBuilder('./assets/kofta.png');
-    const serverImage = new AttachmentBuilder('./assets/server.gif');
+    case '$help': {
+      const embed = new EmbedBuilder()
+        .setColor('#ffee00')
+        .setTitle('Help is here!')
+        .setDescription(`- $ping: Get bot uptime and ping.\n- $weather <city>: Get weather in Fahrenheit.`);
+      await message.channel.send({ embeds: [embed] });
+      break;
+    }
 
-    const embed = new EmbedBuilder()
-      .setImage('attachment://server.gif')
-      .setColor('#ffee00')
-      .setThumbnail('attachment://kofta.png')
-      .setTitle(`KOFTA V${version} ON 🟢`)
-      .setDescription(
-        `KOFTA Uptime: **${uptimeString}**\nKOFTA Ping: ${client.ws.ping}ms`
-      );
-
-    await message.channel.send({
-      embeds: [embed],
-      files: [koftaImage, serverImage],
-    });
-    return;
-  } else if (message.content === '$help') {
-    const koftaImage = new AttachmentBuilder('./assets/kofta.png');
-    const falloutImage = new AttachmentBuilder('./assets/fallout.gif');
-
-    const embed = new EmbedBuilder()
-      .setColor('#ffee00')
-      .setImage('attachment://fallout.gif')
-      .setThumbnail('attachment://kofta.png')
-      .setTitle('Help is here!')
-      .setDescription(
-        `- $ping: Run the '$ping' command to get stats on the bot's uptime and ping.\n- $weather <city> command gives you the weather in Farenheit of any city.\nContact WUTNG for any feature requests for KOFTA.`
-      );
-
-    await message.channel.send({
-      embeds: [embed],
-      files: [falloutImage, koftaImage],
-    });
-    return;
-  } else if (message.content.includes('$weather')) {
-    const city = message.content.split(' ').slice(1).join(' ');
-    weatherApiRequest(city).then((weatherData) => {
-      if (!weatherData) {
-        message.channel.send(`Invalid City or BOT error.`);
-      } else {
-        console.log(weatherData);
-        const weatherSummary = `${weatherData.weather[0].main} (${weatherData.main.temp}°F)`;
-        message.channel.send(
-          `The current weather in ${city} is: ${weatherSummary}`
-        );
+    case '$weather': {
+      const city = args.join(' ');
+      if (!city) return message.reply('Please specify a city.');
+      const weatherData = await weatherApiRequest(city);
+      if (!weatherData || weatherData.cod !== 200) {
+        return message.reply('Invalid city or error retrieving weather data.');
       }
-    });
+      const weatherSummary = `${weatherData.weather[0].main} (${weatherData.main.temp}°F)`;
+      message.channel.send(`The current weather in ${city} is: ${weatherSummary}`);
+      break;
+    }
   }
 });
 
-// Schedule a task to run at 10 AM every day
-setInterval(() => {
-  const currentTime = moment();
-  if (currentTime.hour() === 10 && currentTime.minute() === 0) {
-    // check hour and minute for noon
-    const memberChannel = member.guild.channels.cache.get(member_channel);
-    weatherApiRequest('New York')
-      .then((weatherData) => {
-        if (!weatherData) {
-          console.log('Invalid City or BOT error.'); // log the error instead of sending a message
-          // you can also send an alert to your own channel or email with this information
-        } else {
-          const weatherSummary = `${weatherData.weather[0].main} (${weatherData.main.temp}°F)`;
-          memberChannel.send(
-            `The current weather in New York is: ${weatherSummary}`
-          );
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching weather data:', error); // log any errors that occur
-      });
-  } else if (currentTime.hour() >= 10 && currentTime.hour() < 22) {
-    // check if its daytime (morning to evening)
-    const memberChannel = member.guild.channels.cache.get(member_channel);
-    weatherApiRequest('New York')
-      .then((weatherData) => {
-        if (!weatherData) {
-          console.log('Invalid City or BOT error.');
-        } else {
-          const weatherSummary = `${weatherData.weather[0].main} (${weatherData.main.temp}°F)`;
-          memberChannel.send(
-            `The current weather in New York is: ${weatherSummary}`
-          );
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching weather data:', error);
-      });
+// Scheduled weather updates
+setInterval(async () => {
+  try {
+    const currentTime = moment();
+    if (currentTime.hour() === 10 && currentTime.minute() === 0) {
+      const channel = client.channels.cache.get(member_channel);
+      if (!channel) return;
+      const weatherData = await weatherApiRequest('New York');
+      if (weatherData) {
+        const weatherSummary = `${weatherData.weather[0].main} (${weatherData.main.temp}°F)`;
+        channel.send(`The current weather in New York is: ${weatherSummary}`);
+      }
+    }
+  } catch (error) {
+    console.error('Error in scheduled task:', error);
   }
-}, 60000); //run every hour
+}, 60000); // Check every minute
