@@ -1,3 +1,4 @@
+// comment to test out codeserver
 console.time('\x1b[32m[BOT]\x1b[0m = startup');
 import 'dotenv/config';
 import {
